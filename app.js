@@ -913,6 +913,774 @@ const caseLibrary = [
       },
     ],
   },
+  {
+    id: "resource-room-day",
+    title: "通級の先生の一日",
+    focus: "個別指導 / 記録 / 在籍学級への接続",
+    description: "短い通級指導の中で、本人理解、教材、記録、教室への戻し方を同時に考えるケース。",
+    scenes: [
+      {
+        time: "8:20",
+        title: "今日の指導順を確認する",
+        body:
+          "通級指導教室に着くと、今日の予定表には4人の指導が入っています。昨日の在籍学級からのメモ、前回の指導記録、教材準備がまだ揃っていません。最初の児童が来るまであと15分です。",
+        tags: ["通級指導", "時間不足", "記録負荷"],
+        choices: [
+          {
+            title: "前回記録を読み直す",
+            text: "前回のつまずき、うまくいった支援、次に試すことを確認します。",
+            result: "指導の見通しは立ちましたが、教材の微調整は十分にできませんでした。",
+            effects: { record: 12, safety: 8, time: -10, energy: -4 },
+            pains: ["通級記録を指導に戻す負荷"],
+          },
+          {
+            title: "教材を先に整える",
+            text: "今日使うカード、ワーク、振り返りシートを机に並べます。",
+            result: "授業は始めやすくなりましたが、前回からの変化を確認する時間は減りました。",
+            effects: { classStable: 8, time: -8, record: -4, safety: 2 },
+            pains: ["教材準備と見立て確認の板挟み"],
+          },
+          {
+            title: "在籍学級の担任メモを優先する",
+            text: "教室で最近何が起きているかを先に確認します。",
+            result: "日常場面との接続は見えましたが、今日の個別指導の細部は粗くなりました。",
+            effects: { classStable: 10, record: 6, time: -9, energy: -3 },
+            pains: ["通級と在籍学級をつなぐ負荷"],
+          },
+        ],
+      },
+      {
+        time: "9:05",
+        title: "最初の指導",
+        body:
+          "児童は落ち着いて入室しましたが、前回できた課題に今日は手が止まっています。本人は「わからない」と言い、予定していた教材を進めるか、状態に合わせて切り替えるか迷います。",
+        tags: ["子どもの支援", "教材選定", "短時間指導"],
+        choices: [
+          {
+            title: "教材を小さく分ける",
+            text: "同じねらいのまま、最初の一問だけ一緒に確認します。",
+            result: "本人は取りかかれましたが、予定していた範囲は終わりませんでした。",
+            effects: { safety: 14, record: 5, time: -9, energy: -5 },
+            pains: ["短時間指導の優先順位"],
+          },
+          {
+            title: "別の教材に切り替える",
+            text: "今日は成功しやすい教材に変え、できた感覚を優先します。",
+            result: "安心は戻りましたが、前回からのねらいを継続できたかは曖昧です。",
+            effects: { safety: 16, parentTrust: 3, record: -3, time: -5 },
+            pains: ["成功体験と継続目標のバランス"],
+          },
+          {
+            title: "予定通り進める",
+            text: "見通しを崩さず、今日の課題を最後まで扱います。",
+            result: "計画は守れましたが、本人の困りは深掘りできませんでした。",
+            effects: { time: 5, classStable: 4, safety: -9, record: 2 },
+            pains: ["計画維持と本人状態のズレ"],
+          },
+        ],
+      },
+      {
+        time: "10:30",
+        title: "教室へ戻す一言",
+        body:
+          "指導後、児童を在籍学級へ戻します。担任は授業中で、短く状況を伝えるしかありません。今日の成功、難しかった点、教室で見てほしいことのどれを優先しますか。",
+        tags: ["校内連携", "在籍学級連携", "説明責任"],
+        choices: [
+          {
+            title: "次に見てほしい行動を伝える",
+            text: "今日試した声かけと、教室で見る観察ポイントを一つに絞って伝えます。",
+            result: "担任は使いやすい情報を受け取れましたが、背景説明は省略されました。",
+            effects: { classStable: 14, record: 6, time: -6, energy: -3 },
+            pains: ["支援を教室場面へ一般化する難しさ"],
+          },
+          {
+            title: "成功したことを先に伝える",
+            text: "本人ができたことを担任に共有し、教室でも認めてもらえるようにします。",
+            result: "本人の安心につながりましたが、次の支援ポイントは薄くなりました。",
+            effects: { safety: 10, parentTrust: 3, time: -4, record: -2 },
+            pains: ["よい報告だけでは支援がつながらない"],
+          },
+          {
+            title: "あとで共有メモを書く",
+            text: "今は授業を止めず、放課後に短い共有メモで伝えます。",
+            result: "教室の流れは止めませんでしたが、今すぐの支援にはつながりにくくなりました。",
+            effects: { classStable: 6, record: 10, time: -8, energy: -4 },
+            pains: ["即時共有と記録共有のトレードオフ"],
+          },
+        ],
+      },
+      {
+        time: "16:10",
+        title: "一日の記録を残す",
+        body:
+          "放課後、今日の通級記録を残します。本人の発言、教材への反応、在籍学級への申し送り、次回の教材案を全部書くには時間が足りません。",
+        tags: ["記録負荷", "継続支援", "授業準備"],
+        choices: [
+          {
+            title: "次回の指導につながる記録に絞る",
+            text: "つまずき、支援、反応、次に試す教材を短く残します。",
+            result: "次回につながる記録になりましたが、担任向けの共有は別途必要です。",
+            effects: { record: 18, safety: 5, time: -12, energy: -7 },
+            pains: ["記録を次回設計に変える負荷"],
+          },
+          {
+            title: "担任共有を優先する",
+            text: "明日教室で試してほしい声かけと環境調整を先に書きます。",
+            result: "在籍学級への接続は強まりましたが、通級内の細かな記録は薄くなりました。",
+            effects: { classStable: 14, record: 8, time: -10, energy: -5 },
+            pains: ["通級記録と担任共有の粒度差"],
+          },
+          {
+            title: "最低限のメモで終える",
+            text: "今日扱った内容と次回の候補だけ残します。",
+            result: "退勤は近づきましたが、次回に今日の判断を再現しづらくなりました。",
+            effects: { time: 7, energy: 4, record: -8, classStable: -3 },
+            pains: ["省略した記録は後で効いてくる"],
+          },
+        ],
+      },
+    ],
+  },
+  {
+    id: "resource-room-collaboration",
+    title: "通級と在籍学級の連携",
+    focus: "担任連携 / 支援方針 / 教室での実行",
+    description: "通級で見えた支援を、在籍学級の日常にどうつなげるかを考えるケース。",
+    scenes: [
+      {
+        time: "8:35",
+        title: "担任からの相談",
+        body:
+          "在籍学級の担任から「通級ではできているのに、教室では動けない」と相談されました。担任は困っており、本人の努力不足に見えそうな空気もあります。",
+        tags: ["校内連携", "見立てのズレ", "在籍学級連携"],
+        choices: [
+          {
+            title: "場面の違いを一緒に分解する",
+            text: "人数、音、指示量、時間制限など、通級と教室の違いを確認します。",
+            result: "背景の見立ては深まりましたが、朝の短い時間を使い切りました。",
+            effects: { classStable: 12, record: 8, time: -12, energy: -5 },
+            pains: ["通級で見える姿と教室での姿のズレ"],
+          },
+          {
+            title: "通級で使う支援を渡す",
+            text: "本人が使いやすい手順カードと声かけを共有します。",
+            result: "すぐ試せる道具は渡せましたが、教室で使える形への調整は残りました。",
+            effects: { classStable: 9, safety: 6, time: -6, record: 4 },
+            pains: ["支援を教室場面へ一般化する難しさ"],
+          },
+          {
+            title: "本人の特性を説明する",
+            text: "通級で見えている困りと、教室で起きやすい反応を説明します。",
+            result: "理解は進みましたが、具体的な明日の動きまでは決まりませんでした。",
+            effects: { record: 8, classStable: 4, time: -8, energy: -4 },
+            pains: ["理解共有だけでは実行に落ちない"],
+          },
+        ],
+      },
+      {
+        time: "10:15",
+        title: "教室での観察",
+        body:
+          "通級の空き時間に在籍学級を見に行くと、本人は板書の途中で止まっています。担任は授業を進めながら周囲にも目を配っています。",
+        tags: ["情報収集", "授業運営", "校内連携"],
+        choices: [
+          {
+            title: "本人の手元と指示の量を見る",
+            text: "どのタイミングで止まるのか、通級での様子と比べて観察します。",
+            result: "支援の手がかりは増えましたが、通級の次の準備時間は減りました。",
+            effects: { record: 14, safety: 5, time: -10, energy: -4 },
+            pains: ["教室観察の時間を捻出する難しさ"],
+          },
+          {
+            title: "担任にその場で声をかける",
+            text: "短く、次の一手として指示を一つに絞る提案をします。",
+            result: "すぐ試せましたが、授業中の担任に負荷を足す形にもなりました。",
+            effects: { classStable: 10, safety: 6, time: -7, energy: -5 },
+            pains: ["授業中の助言はタイミングが難しい"],
+          },
+          {
+            title: "観察だけして戻る",
+            text: "場を止めず、放課後に具体例として共有することにします。",
+            result: "授業は止まりませんでしたが、本人はその場では支援を受けられませんでした。",
+            effects: { record: 10, classStable: 4, safety: -5, time: -5 },
+            pains: ["今支えるか後で共有するか"],
+          },
+        ],
+      },
+      {
+        time: "12:45",
+        title: "支援の言葉をそろえる",
+        body:
+          "昼休み、担任と短く話せる時間ができました。通級で使っている声かけを教室でも使うか、教室用に変えるかを決める必要があります。",
+        tags: ["支援設計", "校内連携", "実行負荷"],
+        choices: [
+          {
+            title: "同じ声かけにそろえる",
+            text: "本人が混乱しないよう、通級と教室で同じ言葉を使う提案をします。",
+            result: "一貫性は出ましたが、教室全体の流れに合わせる工夫が必要です。",
+            effects: { safety: 10, classStable: 8, record: 6, time: -7 },
+            pains: ["一貫支援と教室運営の調整"],
+          },
+          {
+            title: "教室用に短く変える",
+            text: "授業中に使いやすいよう、声かけを短くして担任に渡します。",
+            result: "担任は使いやすくなりましたが、通級での意味づけと少しずれました。",
+            effects: { classStable: 12, time: -5, safety: 2, record: 3 },
+            pains: ["支援を現場用に翻訳する負荷"],
+          },
+          {
+            title: "本人にも選んでもらう",
+            text: "どの声かけなら教室で受け取りやすいかを本人に確認します。",
+            result: "本人の納得は高まりましたが、担任との調整はもう一段必要です。",
+            effects: { safety: 14, parentTrust: 2, time: -9, energy: -4 },
+            pains: ["本人納得と運用調整の両立"],
+          },
+        ],
+      },
+      {
+        time: "16:30",
+        title: "明日から試す支援",
+        body:
+          "放課後、担任から「明日から何をすればいいですか」と聞かれました。たくさん提案すると実行しづらく、一つだけだと足りないかもしれません。",
+        tags: ["支援計画", "実行負荷", "校内連携"],
+        choices: [
+          {
+            title: "明日の一手を一つに絞る",
+            text: "授業開始時に手順カードを机に置く、という具体行動だけ決めます。",
+            result: "始めやすくなりましたが、支援全体の見通しはまだ粗いままです。",
+            effects: { classStable: 12, safety: 6, record: 5, time: -4 },
+            pains: ["小さく始めるが全体像は残る"],
+          },
+          {
+            title: "場面別に支援を分ける",
+            text: "授業開始、板書、発表前の3場面で支援を整理します。",
+            result: "支援は具体化しましたが、担任が覚える項目は増えました。",
+            effects: { record: 16, classStable: 10, time: -13, energy: -6 },
+            pains: ["方針を運用に落とす難しさ"],
+          },
+          {
+            title: "一週間観察してから決める",
+            text: "すぐ変えず、教室でのパターンをもう少し集めます。",
+            result: "見立ては慎重になりますが、担任は明日の対応に迷いを残します。",
+            effects: { record: 9, time: 3, classStable: -4, safety: -3 },
+            pains: ["慎重な観察と即時支援の葛藤"],
+          },
+        ],
+      },
+    ],
+  },
+  {
+    id: "resource-room-time",
+    title: "時間割のすき間で支える",
+    focus: "取り出し時間 / 予定変更 / 複数児童",
+    description: "通級担当が、固定枠だけでは回らない時間調整と複数児童の支援をやりくりするケース。",
+    scenes: [
+      {
+        time: "8:50",
+        title: "時間割変更の連絡",
+        body:
+          "朝、学年行事の関係で、予定していた通級の時間をずらせないか連絡が入りました。同じ時間帯には別の児童の指導も入っています。",
+        tags: ["時間割調整", "校内連携", "時間不足"],
+        choices: [
+          {
+            title: "別時間に振り替える",
+            text: "本人の指導機会を守るため、空き時間を探して調整します。",
+            result: "指導は残せましたが、別の準備時間が削られました。",
+            effects: { safety: 10, classStable: 4, time: -12, energy: -5 },
+            pains: ["取り出し時間の調整負荷"],
+          },
+          {
+            title: "今日は短縮して行う",
+            text: "予定を半分にし、今週の重点だけ扱います。",
+            result: "時間割への影響は抑えられましたが、指導の深さは浅くなりました。",
+            effects: { time: -4, safety: 4, record: -3, classStable: 7 },
+            pains: ["短時間指導の優先順位"],
+          },
+          {
+            title: "今週は在籍学級を優先する",
+            text: "行事への参加を優先し、通級は次回に回します。",
+            result: "学級参加は守れましたが、通級で扱う予定だった支援は先送りになります。",
+            effects: { classStable: 10, time: 4, safety: -5, record: -4 },
+            pains: ["参加機会と個別支援の時間配分"],
+          },
+        ],
+      },
+      {
+        time: "10:40",
+        title: "急な相談が入る",
+        body:
+          "別の担任から、休み時間のトラブルについて今すぐ相談したいと言われました。次の通級指導までは10分しかありません。",
+        tags: ["校内連携", "時間圧", "相談対応"],
+        choices: [
+          {
+            title: "今すぐ要点だけ聞く",
+            text: "事実、対応、次に困っていることを3点だけ確認します。",
+            result: "担任の孤立は防げましたが、次の指導準備は薄くなりました。",
+            effects: { classStable: 10, record: 5, time: -8, energy: -5 },
+            pains: ["相談対応と指導準備の板挟み"],
+          },
+          {
+            title: "放課後に時間を取る",
+            text: "今は次の指導を優先し、あとで落ち着いて聞く約束をします。",
+            result: "指導準備は守れましたが、担任はしばらく不安を抱えます。",
+            effects: { safety: 6, time: 2, classStable: -4, record: 2 },
+            pains: ["即時相談と後続整理のトレードオフ"],
+          },
+          {
+            title: "管理職にもつなぐ",
+            text: "担任だけで抱えないよう、管理職と共有してから対応します。",
+            result: "組織対応にはなりましたが、調整する相手が増えました。",
+            effects: { classStable: 8, record: 7, time: -10, energy: -4 },
+            pains: ["個人対応と組織対応の境界"],
+          },
+        ],
+      },
+      {
+        time: "13:20",
+        title: "複数児童の記録",
+        body:
+          "午後の空き時間に、午前中の3人分の記録をまとめます。全員分を丁寧に書くには時間が足りず、明日の準備も残っています。",
+        tags: ["記録負荷", "複数児童", "授業準備"],
+        choices: [
+          {
+            title: "優先度の高い児童から書く",
+            text: "明日すぐ支援が必要な児童の記録を先に整えます。",
+            result: "必要な支援にはつながりましたが、他の記録は後回しになりました。",
+            effects: { record: 12, safety: 5, time: -8, energy: -5 },
+            pains: ["複数児童の優先順位づけ"],
+          },
+          {
+            title: "全員分を短く残す",
+            text: "日付、ねらい、反応、次回の一手だけ全員分メモします。",
+            result: "抜けは減りましたが、深い見立ては後で補う必要があります。",
+            effects: { record: 10, time: -6, classStable: 4, energy: -3 },
+            pains: ["浅く広い記録と深い見立ての葛藤"],
+          },
+          {
+            title: "明日の教材準備を優先する",
+            text: "記録は最低限にし、明日の教材を先に整えます。",
+            result: "授業は回りそうですが、今日の気づきが薄れていきます。",
+            effects: { time: -5, classStable: 6, record: -8, safety: 2 },
+            pains: ["記録と教材準備の板挟み"],
+          },
+        ],
+      },
+      {
+        time: "15:55",
+        title: "保護者への短い共有",
+        body:
+          "保護者から「通級ではどんなことをしていますか」と聞かれています。個別指導の内容、在籍学級での様子、家庭でできることを全部伝えると長くなります。",
+        tags: ["保護者コミュニケーション", "説明責任", "通級指導"],
+        choices: [
+          {
+            title: "今日のねらいと変化を伝える",
+            text: "扱った課題、本人の反応、次に見るポイントを簡潔に共有します。",
+            result: "通級の意味は伝わりましたが、文章作成に時間を使いました。",
+            effects: { parentTrust: 16, record: 8, time: -11, energy: -6 },
+            pains: ["通級の支援意図を説明する負荷"],
+          },
+          {
+            title: "家庭で見てほしい一点に絞る",
+            text: "家庭で無理なく見られる行動を一つだけ共有します。",
+            result: "保護者は動きやすくなりましたが、通級全体の説明は限定的です。",
+            effects: { parentTrust: 10, time: -5, record: 3, safety: 3 },
+            pains: ["短い連絡では伝わらない文脈"],
+          },
+          {
+            title: "担任経由で共有する",
+            text: "在籍学級での支援と合わせて担任から伝えてもらいます。",
+            result: "学校としての一貫性は出ますが、情報の伝わり方は担任に依存します。",
+            effects: { classStable: 8, parentTrust: 5, time: -6, record: 4 },
+            pains: ["通級と担任連絡の役割分担"],
+          },
+        ],
+      },
+    ],
+  },
+  {
+    id: "lesson-prep-individual-task",
+    title: "明日の個別課題を選ぶ",
+    focus: "実態把握 / 難易度調整 / 成功体験",
+    description: "翌日の個別指導に向けて、子どもの状態とねらいに合う教材を選ぶケース。",
+    scenes: [
+      {
+        time: "15:20",
+        title: "前回の反応を見返す",
+        body:
+          "明日の個別課題を選ぶため、前回の記録を開きます。課題は途中までできましたが、最後は疲れて投げ出しそうになっていました。成功体験を優先するか、少し挑戦するか迷います。",
+        tags: ["教材選定", "見立て", "記録負荷"],
+        choices: [
+          {
+            title: "前回できた課題から始める",
+            text: "最初に成功しやすい課題を置き、安心して入れる流れを作ります。",
+            result: "取りかかりやすくなりそうですが、新しいねらいに入る時間は短くなります。",
+            effects: { safety: 14, time: -4, record: 4, energy: -2 },
+            pains: ["成功体験と挑戦のバランス"],
+          },
+          {
+            title: "一段階だけ難しくする",
+            text: "前回と同じ型で、条件を一つ増やした教材を用意します。",
+            result: "伸びを見る材料は作れましたが、明日の状態次第では負荷が高いかもしれません。",
+            effects: { record: 10, safety: -3, time: -7, energy: -4 },
+            pains: ["難易度調整の見立て負荷"],
+          },
+          {
+            title: "本人が選べる教材を2つ用意する",
+            text: "同じねらいで、書く課題とカード課題を準備します。",
+            result: "選択肢は作れましたが、準備する教材が増えました。",
+            effects: { safety: 10, record: 6, time: -12, energy: -5 },
+            pains: ["選択肢を用意する準備負荷"],
+          },
+        ],
+      },
+      {
+        time: "15:55",
+        title: "ねらいを絞る",
+        body:
+          "教材候補を見ていると、読む、書く、話す、自己調整のどれにも触れたくなります。ただ、明日の指導時間は45分です。",
+        tags: ["支援設計", "授業準備", "優先順位の迷い"],
+        choices: [
+          {
+            title: "一つのねらいに絞る",
+            text: "明日は『困った時に伝える』に絞り、教材もそこに合わせます。",
+            result: "指導はぶれにくくなりましたが、他の困りは後回しになります。",
+            effects: { classStable: 8, record: 8, time: -5, safety: 4 },
+            pains: ["ねらいを絞るほど他を後回しにする"],
+          },
+          {
+            title: "前半と後半で分ける",
+            text: "前半は読み、後半は自己調整の練習にします。",
+            result: "複数の困りに触れられますが、切り替え支援が必要になります。",
+            effects: { record: 6, safety: -2, time: -8, energy: -5 },
+            pains: ["一回の授業に詰め込みすぎるリスク"],
+          },
+          {
+            title: "担任の困りを優先する",
+            text: "教室で一番困っている『指示理解』を明日の中心にします。",
+            result: "在籍学級には接続しやすくなりますが、本人の希望とはずれるかもしれません。",
+            effects: { classStable: 12, record: 5, safety: -4, time: -4 },
+            pains: ["教室ニーズと本人ニーズの調整"],
+          },
+        ],
+      },
+      {
+        time: "16:35",
+        title: "教材の形を決める",
+        body:
+          "同じねらいでも、プリント、カード、実物、タブレット風の画面など形はいくつもあります。本人が取り組みやすい形と、準備できる時間の間で迷います。",
+        tags: ["教材選定", "授業準備", "時間不足"],
+        choices: [
+          {
+            title: "カード教材を作る",
+            text: "手に取って並べ替えられるカードで、考えやすくします。",
+            result: "本人には合いそうですが、作成と印刷に時間がかかります。",
+            effects: { safety: 12, record: 4, time: -14, energy: -7 },
+            pains: ["教材準備の見えにくさ"],
+          },
+          {
+            title: "既存プリントを調整する",
+            text: "既存教材の問題数と余白を変えて使います。",
+            result: "準備時間は抑えられましたが、本人にぴったり合うかは微妙です。",
+            effects: { time: -5, energy: -2, safety: 2, record: 3 },
+            pains: ["既存教材と個別最適のズレ"],
+          },
+          {
+            title: "実物を使う活動にする",
+            text: "教室や家庭に近い物を使い、実生活に近い形で練習します。",
+            result: "意味づけはしやすくなりますが、準備物の確認が増えます。",
+            effects: { safety: 9, parentTrust: 5, time: -10, energy: -5 },
+            pains: ["生活場面に近づける準備負荷"],
+          },
+        ],
+      },
+      {
+        time: "17:15",
+        title: "明日の観察ポイント",
+        body:
+          "教材は決まりました。最後に、明日どこを見れば次回につながるかを決めます。観察ポイントが多すぎると、授業中に見きれません。",
+        tags: ["記録負荷", "支援設計", "継続支援"],
+        choices: [
+          {
+            title: "一番見たい反応を決める",
+            text: "つまずいた時に助けを求められるか、だけを重点にします。",
+            result: "観察はしやすくなりましたが、他の変化は拾いにくくなります。",
+            effects: { record: 10, time: -4, safety: 5, energy: -2 },
+            pains: ["観察ポイントを絞る難しさ"],
+          },
+          {
+            title: "教材ごとに観察欄を作る",
+            text: "課題ごとの反応をすぐ書ける簡単な記録欄を作ります。",
+            result: "次回設計に使いやすくなりますが、準備時間がさらに増えました。",
+            effects: { record: 16, time: -10, energy: -5, classStable: 3 },
+            pains: ["記録を次回設計に変える負荷"],
+          },
+          {
+            title: "授業中のメモは最小限にする",
+            text: "授業の流れを優先し、終わってから思い出して書くことにします。",
+            result: "授業は進めやすいですが、細かな反応は抜けやすくなります。",
+            effects: { classStable: 6, time: 4, record: -7, safety: 1 },
+            pains: ["授業中観察と授業進行の両立"],
+          },
+        ],
+      },
+    ],
+  },
+  {
+    id: "lesson-prep-reuse-materials",
+    title: "同じ教材を使い回せない",
+    focus: "個別最適 / 再利用性 / 準備時間",
+    description: "既存教材を使い回したいが、児童ごとのねらいと状態に合わせる必要があるケース。",
+    scenes: [
+      {
+        time: "14:40",
+        title: "去年の教材を見つける",
+        body:
+          "昨年作ったカード教材が棚から出てきました。ねらいは近いものの、今年の児童には文字量が多く、興味も少し違います。使い回すか、作り直すか迷います。",
+        tags: ["教材選定", "個別最適", "時間不足"],
+        choices: [
+          {
+            title: "そのまま試す",
+            text: "まず既存教材で反応を見て、必要なら次回直します。",
+            result: "準備時間は抑えられましたが、本人に合わず止まるリスクが残ります。",
+            effects: { time: 7, energy: 3, safety: -6, record: -2 },
+            pains: ["教材の使い回しが合わないリスク"],
+          },
+          {
+            title: "文字量だけ減らす",
+            text: "全部は作り直さず、本人が読める量に調整します。",
+            result: "負荷は下がりましたが、興味づけまでは十分ではありません。",
+            effects: { safety: 8, time: -6, record: 4, energy: -3 },
+            pains: ["部分調整でも準備時間がかかる"],
+          },
+          {
+            title: "本人の興味に合わせて作り直す",
+            text: "好きな題材に置き換え、同じねらいを扱える教材にします。",
+            result: "取り組みやすさは上がりそうですが、準備時間は大きく増えました。",
+            effects: { safety: 14, parentTrust: 4, time: -16, energy: -8 },
+            pains: ["個別最適と再利用性の葛藤"],
+          },
+        ],
+      },
+      {
+        time: "15:25",
+        title: "複数児童への転用",
+        body:
+          "同じ教材を別の児童にも使えそうですが、ねらいは少し違います。一人は語彙、一人は順序理解、一人は会話練習が中心です。",
+        tags: ["複数児童", "教材選定", "支援設計"],
+        choices: [
+          {
+            title: "共通部分だけ残す",
+            text: "土台は同じにして、問いかけと記録欄だけ変えます。",
+            result: "再利用しやすくなりましたが、各児童への微調整は残ります。",
+            effects: { record: 10, time: -8, classStable: 5, energy: -4 },
+            pains: ["共通教材と個別ねらいの調整"],
+          },
+          {
+            title: "児童ごとに別教材にする",
+            text: "ねらいの違いを優先し、それぞれに合う形で用意します。",
+            result: "指導には合いそうですが、準備量は一気に増えました。",
+            effects: { safety: 12, record: 8, time: -18, energy: -9 },
+            pains: ["個別最適と準備時間の衝突"],
+          },
+          {
+            title: "同じ教材で問いを変える",
+            text: "教材は共通にし、発問と支援の仕方でねらいを変えます。",
+            result: "準備は抑えられましたが、授業中の判断負荷が上がります。",
+            effects: { time: -5, classStable: 6, energy: -6, record: 3 },
+            pains: ["教材共通化が授業中判断を増やす"],
+          },
+        ],
+      },
+      {
+        time: "16:05",
+        title: "保管方法を決める",
+        body:
+          "作った教材を次に使える形で残したいところです。分類名、対象、ねらい、調整メモまで残すと便利ですが、今すぐの準備時間は減ります。",
+        tags: ["記録負荷", "教材管理", "時間不足"],
+        choices: [
+          {
+            title: "ねらい別に整理する",
+            text: "『見通し』『語彙』『感情理解』のように、次回探しやすく分けます。",
+            result: "後から使いやすくなりますが、整理に時間がかかりました。",
+            effects: { record: 16, time: -12, energy: -5, classStable: 4 },
+            pains: ["教材管理も支援準備に含まれる"],
+          },
+          {
+            title: "児童別フォルダに入れる",
+            text: "その子に使った教材として、反応メモと一緒に残します。",
+            result: "個別支援にはつながりますが、他の児童への転用は探しにくくなります。",
+            effects: { record: 12, safety: 4, time: -8, energy: -4 },
+            pains: ["個別記録と教材再利用の粒度差"],
+          },
+          {
+            title: "今日使う分だけ準備する",
+            text: "整理は後に回し、明日の授業で使う教材だけ整えます。",
+            result: "明日は回りますが、教材資産としては残りにくくなりました。",
+            effects: { time: 5, energy: 3, record: -8, classStable: -2 },
+            pains: ["整理を後回しにすると再利用できない"],
+          },
+        ],
+      },
+      {
+        time: "17:00",
+        title: "共有できる形にする",
+        body:
+          "支援員から「その教材、他の子にも使えますか」と聞かれました。共有したい一方で、使い方の意図が伝わらないと逆効果になるかもしれません。",
+        tags: ["校内連携", "教材選定", "説明責任"],
+        choices: [
+          {
+            title: "使い方メモを添える",
+            text: "ねらい、声かけ、難しくなった時の戻し方を短く書きます。",
+            result: "他の先生も使いやすくなりましたが、共有用の説明を書く時間が増えました。",
+            effects: { classStable: 12, record: 12, time: -12, energy: -5 },
+            pains: ["教材意図を共有する負荷"],
+          },
+          {
+            title: "まず一緒に使う",
+            text: "支援員と一度同席し、教材の使い方を見てもらいます。",
+            result: "意図は伝わりやすくなりますが、同席時間の調整が必要です。",
+            effects: { classStable: 14, safety: 4, time: -10, energy: -4 },
+            pains: ["教材共有にも伴走が必要"],
+          },
+          {
+            title: "教材だけ渡す",
+            text: "急ぎなので、まずは教材を渡して自由に使ってもらいます。",
+            result: "すぐ共有できましたが、ねらいと違う使い方になる可能性があります。",
+            effects: { time: 4, classStable: 3, record: -5, safety: -3 },
+            pains: ["教材だけでは支援意図が伝わらない"],
+          },
+        ],
+      },
+    ],
+  },
+  {
+    id: "lesson-prep-after-class",
+    title: "授業後に次回を組み直す",
+    focus: "授業後記録 / 次回設計 / 共有",
+    description: "授業中の反応を受けて、準備済みの次回案をどう組み直すか考えるケース。",
+    scenes: [
+      {
+        time: "11:45",
+        title: "予想と違う反応",
+        body:
+          "個別指導が終わりました。用意した教材は簡単すぎた場面と、思ったより難しかった場面が混在しています。次回案をそのまま使うか、組み直すか迷います。",
+        tags: ["授業後記録", "見立て", "教材選定"],
+        choices: [
+          {
+            title: "反応を細かく記録する",
+            text: "どの課題で止まり、どの支援で動いたかをすぐ残します。",
+            result: "次回設計の材料は増えましたが、昼の準備時間が削られました。",
+            effects: { record: 18, time: -12, energy: -6, safety: 4 },
+            pains: ["授業後すぐの記録負荷"],
+          },
+          {
+            title: "次回教材だけ先に直す",
+            text: "記憶が新しいうちに、難易度と順番を修正します。",
+            result: "次回の準備は進みましたが、今日の根拠記録は粗くなりました。",
+            effects: { classStable: 8, safety: 6, record: -3, time: -9 },
+            pains: ["教材修正と根拠記録の板挟み"],
+          },
+          {
+            title: "大きな方針は変えない",
+            text: "一回の反応で決めず、もう一度同じ流れで見ます。",
+            result: "判断は慎重ですが、次回も同じつまずきが出る可能性があります。",
+            effects: { time: 4, record: 4, safety: -4, classStable: -2 },
+            pains: ["一回の反応をどこまで重く見るか"],
+          },
+        ],
+      },
+      {
+        time: "13:05",
+        title: "本人の言葉をどう扱うか",
+        body:
+          "授業の最後に、本人が「これは学校の授業では使えない」と言いました。本人の実感を大切にしたい一方、教材のねらいは外したくありません。",
+        tags: ["本人理解", "支援設計", "教材選定"],
+        choices: [
+          {
+            title: "本人の言葉を次回の入口にする",
+            text: "次回は『教室で使える形にする』ことを一緒に考えます。",
+            result: "本人の納得は高まりそうですが、教材を作り直す必要があります。",
+            effects: { safety: 14, parentTrust: 3, time: -10, energy: -5 },
+            pains: ["本人の実感を教材に反映する負荷"],
+          },
+          {
+            title: "ねらいは維持して場面だけ変える",
+            text: "同じスキルを、教室で起きやすい場面に置き換えます。",
+            result: "実用性は上がりそうですが、場面設定を考える時間が必要です。",
+            effects: { classStable: 8, safety: 8, record: 5, time: -8 },
+            pains: ["生活場面に近づける準備負荷"],
+          },
+          {
+            title: "まずは通級内で定着させる",
+            text: "教室への転用は次段階とし、通級内でできることを増やします。",
+            result: "段階は守れますが、教室での困りにはすぐ届きません。",
+            effects: { safety: 5, record: 4, classStable: -5, time: 2 },
+            pains: ["通級内の成功と教室転用の距離"],
+          },
+        ],
+      },
+      {
+        time: "15:10",
+        title: "担任への共有タイミング",
+        body:
+          "今日の反応は在籍学級の担任にも伝えたい内容です。ただ、担任は放課後に会議があり、短時間しか話せません。",
+        tags: ["校内連携", "記録負荷", "説明責任"],
+        choices: [
+          {
+            title: "今日の一番大事な変化だけ伝える",
+            text: "本人が教室で使えないと言ったことと、次回試す方向を共有します。",
+            result: "担任は要点を受け取れましたが、詳しい背景は共有しきれていません。",
+            effects: { classStable: 10, record: 5, time: -5, energy: -3 },
+            pains: ["短い共有では背景が落ちる"],
+          },
+          {
+            title: "共有メモにして渡す",
+            text: "本人の言葉、見立て、次回案を短く書いて渡します。",
+            result: "後から見返せますが、メモ作成に時間がかかりました。",
+            effects: { record: 14, classStable: 8, time: -11, energy: -5 },
+            pains: ["共有用と記録用で粒度が違う"],
+          },
+          {
+            title: "次回後にまとめて共有する",
+            text: "今日だけで判断せず、次回の反応も見てから伝えます。",
+            result: "慎重な共有になりますが、教室側の支援は遅れます。",
+            effects: { record: 5, time: 3, classStable: -4, safety: -2 },
+            pains: ["慎重な観察と即時支援の葛藤"],
+          },
+        ],
+      },
+      {
+        time: "16:50",
+        title: "次回案を組み直す",
+        body:
+          "今日の記録と本人の言葉をもとに、次回案を直します。教材、声かけ、在籍学級への橋渡し、観察ポイントまで考えると、準備は終わりません。",
+        tags: ["授業準備", "継続支援", "時間不足"],
+        choices: [
+          {
+            title: "次回の最初の10分を設計する",
+            text: "授業全体ではなく、入り口だけ具体的に組み直します。",
+            result: "始まりは安定しそうですが、後半は当日の判断に残ります。",
+            effects: { safety: 8, time: -5, record: 5, energy: -3 },
+            pains: ["小さく始めるが全体像は残る"],
+          },
+          {
+            title: "教材と観察ポイントをセットで直す",
+            text: "教材の難易度と、見るべき反応を一緒に更新します。",
+            result: "次回設計は強まりましたが、作業時間は大きく増えました。",
+            effects: { record: 18, safety: 8, time: -14, energy: -8 },
+            pains: ["観察から次回設計へ変換する負荷"],
+          },
+          {
+            title: "教材はそのまま、声かけを変える",
+            text: "準備時間を抑え、支援の言葉だけ調整します。",
+            result: "すぐ試せますが、教材そのもののズレは残るかもしれません。",
+            effects: { time: -3, classStable: 5, safety: 2, record: 2 },
+            pains: ["教材を直さず支援で補う限界"],
+          },
+        ],
+      },
+    ],
+  },
 ];
 
 const painDescriptions = {
@@ -1047,7 +1815,88 @@ const painDescriptions = {
   "見立て共有の言葉選び": "同僚の実践を尊重しながら、本人の負荷や支援仮説を伝える必要がある。",
   "見通し支援": "予定、順番、困った時の行動を見える形にして、不安を下げる支援。",
   "記録と現場対応の板挟み": "記録を残すほど次に生きるが、その瞬間の子ども対応や授業準備の時間は削られる。",
+  "通級指導": "個別指導の時間だけでなく、在籍学級や家庭との接続まで含めて支援を考える必要がある。",
+  "在籍学級連携": "通級で見えた支援を、本人が日常を過ごす教室で実行できる形に変える必要がある。",
+  "短時間指導": "限られた指導時間の中で、安心づくり、ねらい、記録、次回への接続を選び取る必要がある。",
+  "教材選定": "教材は単元や学年だけでなく、本人の状態、興味、疲労、教室での使いやすさに合わせて選ぶ必要がある。",
+  "教材準備の見えにくさ": "授業で自然に見える教材ほど、事前の見立て、調整、印刷、保管の手間が隠れている。",
+  "通級と在籍学級をつなぐ負荷": "通級での支援を教室の日常に戻すには、担任との共有と運用調整が必要になる。",
+  "支援を教室場面へ一般化する難しさ": "個別指導でできたことを、音や人数や時間制約のある教室で使える形にする必要がある。",
+  "取り出し時間の調整負荷": "通級の時間は、在籍学級の授業、行事、本人の負担、他児童の予定とぶつかりやすい。",
+  "教材選定の見立て負荷": "教材の難易度や形を決めるには、前回の反応、本人の状態、次のねらいを同時に見る必要がある。",
+  "個別最適と再利用性の葛藤": "一人に合わせるほど教材は効きやすいが、他の児童や次回に使い回しにくくなる。",
+  "観察から次回設計へ変換する負荷": "授業中の反応を、次回の教材、声かけ、観察ポイントに変えるには時間と整理が必要。",
+  "授業後すぐの記録負荷": "授業直後の気づきは次回設計に重要だが、次の授業や会議の準備時間と競合する。",
+  "教材意図を共有する負荷": "教材そのものだけでなく、ねらい、声かけ、戻し方まで共有しないと支援がずれることがある。",
+  "リソース不足で理想対応を選べない": "必要だと分かっている支援でも、残り時間や先生の余力が足りないと選択肢から外れてしまう。",
 };
+
+const discoveryCategories = [
+  {
+    id: "time-priority",
+    title: "時間・優先順位",
+    matches: ["時間", "優先", "後回し", "準備", "待つ", "同時並行", "現場判断", "時間割", "短時間", "リソース"],
+    need:
+      "先生が短い判断の中で何を守り、何を後回しにしたかを後から再構成できる支援が必要そう。",
+    validation: "朝や放課後の判断で、先生はどの情報が先に見えていると迷いが減るか。",
+  },
+  {
+    id: "records",
+    title: "記録・共有",
+    matches: ["記録", "共有", "資料", "要約", "口頭", "編集", "メモ", "保管", "教材管理"],
+    need:
+      "事実、解釈、次の一手を低負荷で残し、保護者説明や会議資料に変換できる支援が必要そう。",
+    validation: "先生が今の記録で後から一番困るのは、事実不足、粒度のばらつき、共有先ごとの書き分けのどれか。",
+  },
+  {
+    id: "parent-communication",
+    title: "保護者コミュニケーション",
+    matches: ["保護者", "家庭", "連絡", "説明", "期待値", "不安", "リスク説明"],
+    need:
+      "保護者の不安を受け止めつつ、事実、支援意図、次の見通しを誤解なく伝える支援が必要そう。",
+    validation: "保護者連絡で先生がもっとも神経を使うのは、言葉選び、タイミング、校内方針との整合のどれか。",
+  },
+  {
+    id: "school-coordination",
+    title: "校内連携・役割分担",
+    matches: ["校内", "連携", "役割", "支援員", "管理職", "同僚", "合意", "関係者", "担任", "在籍学級", "教室", "相談"],
+    need:
+      "担任、支援員、管理職、通常級担任の見立てと役割分担を、日々の運用に落とす支援が必要そう。",
+    validation: "現場で支援方針がずれる時、足りないのは共通記録、判断基準、役割分担、振り返り機会のどれか。",
+  },
+  {
+    id: "support-design",
+    title: "支援設計・見立て",
+    matches: [
+      "支援",
+      "見立て",
+      "仮説",
+      "背景",
+      "安心",
+      "本人",
+      "合理的配慮",
+      "参加",
+      "感覚",
+      "行動",
+      "教材",
+      "ねらい",
+      "観察",
+      "通級",
+      "個別",
+    ],
+    need:
+      "本人の安心、参加機会、自立、周囲への影響を同時に見ながら、次に試す支援を仮説化する支援が必要そう。",
+    validation: "先生は行動の背景を考える時、本人情報、環境情報、前後の結果、過去記録のどれを一番欲しがるか。",
+  },
+  {
+    id: "emotional-load",
+    title: "心理的負荷・説明責任",
+    matches: ["心理", "慎重", "板挟み", "葛藤", "負荷", "責任", "安全"],
+    need:
+      "正しさを断定できない状況でも、関係者に説明しながら判断を続ける先生の心理的負荷を下げる支援が必要そう。",
+    validation: "先生が一人で抱え込みやすい判断は、どのタイミングで誰に共有されると負荷が下がるか。",
+  },
+];
 
 const abcCase = {
   title: "順番待ちで手が出た場面",
@@ -1209,6 +2058,11 @@ const abcLabels = {
   C: "C: 後続事象",
 };
 
+const resourceEffectMultipliers = {
+  time: 1.35,
+  energy: 1.25,
+};
+
 const state = {
   mode: "pain",
   caseIndex: 0,
@@ -1217,6 +2071,7 @@ const state = {
   pains: [],
   log: [],
   pendingLogIndex: null,
+  resourceLimits: [],
   abcCardOrder: [],
   abcAssignments: {},
   abcHypothesis: null,
@@ -1240,6 +2095,15 @@ function activeCase() {
 
 function clamp(value) {
   return Math.max(0, Math.min(100, value));
+}
+
+function scaleEffect(key, value) {
+  if (value >= 0 || !resourceEffectMultipliers[key]) return value;
+  return -Math.ceil(Math.abs(value) * resourceEffectMultipliers[key]);
+}
+
+function effectiveEffects(choice) {
+  return Object.fromEntries(Object.entries(choice.effects).map(([key, value]) => [key, scaleEffect(key, value)]));
 }
 
 function shuffle(items) {
@@ -1267,6 +2131,115 @@ function renderMeters() {
   Object.entries(state.stats).forEach(([key, value]) => updateMeter(key, value));
 }
 
+function resourceRequirement(choice) {
+  if (choice.requires) {
+    return {
+      time: choice.requires.time || 0,
+      energy: choice.requires.energy || 0,
+    };
+  }
+
+  const cost = resourceCost(choice);
+
+  return {
+    time: cost.time >= 4 ? Math.min(90, cost.time * 2 + 12) : 0,
+    energy: cost.energy >= 4 ? Math.min(90, cost.energy * 2 + 10) : 0,
+  };
+}
+
+function resourceCost(choice) {
+  const effects = effectiveEffects(choice);
+  return {
+    time: Math.max(0, -(effects.time || 0)),
+    energy: Math.max(0, -(effects.energy || 0)),
+  };
+}
+
+function formatResourceValues(values, emptyLabel = "なし") {
+  const parts = [];
+  if (values.time > 0) parts.push(`残り時間 ${values.time}`);
+  if (values.energy > 0) parts.push(`先生の余力 ${values.energy}`);
+  return parts.length > 0 ? parts.join(" / ") : emptyLabel;
+}
+
+function resourceShortfall(requirement) {
+  const shortfalls = [];
+  if (requirement.time > state.stats.time) {
+    shortfalls.push(`残り時間 ${requirement.time}必要 / 現在${state.stats.time}`);
+  }
+  if (requirement.energy > state.stats.energy) {
+    shortfalls.push(`先生の余力 ${requirement.energy}必要 / 現在${state.stats.energy}`);
+  }
+  return shortfalls;
+}
+
+function choiceResourceStates(scene) {
+  const states = scene.choices.map((choice) => {
+    const requirement = resourceRequirement(choice);
+    const shortfalls = resourceShortfall(requirement);
+    const cost = resourceCost(choice);
+    return {
+      choice,
+      requirement,
+      cost,
+      shortfalls,
+      available: shortfalls.length === 0,
+      forcedAvailable: false,
+    };
+  });
+
+  if (states.every((item) => !item.available)) {
+    const fallback = [...states].sort(
+      (a, b) =>
+        a.requirement.time +
+          a.requirement.energy +
+          a.cost.time +
+          a.cost.energy -
+        (b.requirement.time +
+          b.requirement.energy +
+          b.cost.time +
+          b.cost.energy),
+    )[0];
+    fallback.available = true;
+    fallback.forcedAvailable = true;
+  }
+
+  return states;
+}
+
+function resourceMessage(choiceState) {
+  const detail = `実行に必要な余白: ${formatResourceValues(choiceState.requirement)} / 実際の消費: ${formatResourceValues(
+    choiceState.cost,
+  )}`;
+  if (choiceState.forcedAvailable) {
+    return `最低限の対応として選択可 / ${detail}`;
+  }
+  if (!choiceState.available) {
+    return `今は選べません: ${choiceState.shortfalls.join(" / ")} / ${detail}`;
+  }
+  return detail;
+}
+
+function recordResourceLimits(scene, choiceStates) {
+  const blockedChoices = choiceStates.filter((item) => !item.available && !item.forcedAvailable);
+  if (blockedChoices.length === 0) return;
+  if (state.resourceLimits.some((item) => item.sceneIndex === state.scene)) return;
+
+  state.resourceLimits.push({
+    sceneIndex: state.scene,
+    time: scene.time,
+    scene: scene.title,
+    stats: { time: state.stats.time, energy: state.stats.energy },
+    blockedChoices: blockedChoices.map((item) => ({
+      title: item.choice.title,
+      reason: item.shortfalls.join(" / "),
+      requirement: item.requirement,
+      cost: item.cost,
+      effects: effectiveEffects(item.choice),
+    })),
+  });
+}
+
 function renderCaseCards() {
   $("#caseGrid").innerHTML = "";
   caseLibrary.forEach((caseItem, index) => {
@@ -1275,9 +2248,9 @@ function renderCaseCards() {
     button.className = "case-card";
     button.setAttribute("aria-pressed", String(index === state.caseIndex));
     button.innerHTML = `
-      <strong>${caseItem.title}</strong>
-      <span>${caseItem.description}</span>
-      <small>${caseItem.focus}</small>
+      <strong>${escapeHtml(caseItem.title)}</strong>
+      <span>${escapeHtml(caseItem.description)}</span>
+      <small>${escapeHtml(caseItem.focus)}</small>
     `;
     button.addEventListener("click", () => {
       state.caseIndex = index;
@@ -1311,20 +2284,30 @@ function renderScene() {
   $("#sceneTitle").textContent = scene.title;
   $("#sceneIndex").textContent = `Scene ${state.scene + 1} / ${currentCase.scenes.length}`;
   $("#sceneBody").textContent = scene.body;
-  $("#painTags").innerHTML = scene.tags.map((tag) => `<span class="tag">${tag}</span>`).join("");
+  $("#painTags").innerHTML = scene.tags.map((tag) => `<span class="tag">${escapeHtml(tag)}</span>`).join("");
   $("#choices").innerHTML = "";
   $("#choices").classList.remove("hidden");
   $("#decisionReflection").classList.add("hidden");
   $("#decisionNote").value = "";
 
-  scene.choices.forEach((choice, index) => {
+  const choiceStates = choiceResourceStates(scene);
+  recordResourceLimits(scene, choiceStates);
+
+  choiceStates.forEach((choiceState, index) => {
+    const { choice } = choiceState;
+    const effects = effectiveEffects(choice);
     const button = document.createElement("button");
-    button.className = "choice-card";
+    const resourceNote = resourceMessage(choiceState);
+    button.className = ["choice-card", !choiceState.available ? "is-locked" : "", choiceState.forcedAvailable ? "is-fallback" : ""]
+      .filter(Boolean)
+      .join(" ");
     button.type = "button";
+    button.disabled = !choiceState.available;
     button.innerHTML = `
-      <strong>${index + 1}. ${choice.title}</strong>
-      <span>${choice.text}</span>
-      <small>${describeEffects(choice.effects)}</small>
+      <strong>${index + 1}. ${escapeHtml(choice.title)}</strong>
+      <span>${escapeHtml(choice.text)}</span>
+      <small>${escapeHtml(describeEffects(effects))}</small>
+      ${resourceNote ? `<small class="resource-note">${escapeHtml(resourceNote)}</small>` : ""}
     `;
     button.addEventListener("click", () => choose(choice));
     $("#choices").appendChild(button);
@@ -1337,6 +2320,14 @@ function describeEffects(effects) {
   return Object.entries(effects)
     .map(([key, value]) => `${statLabels[key]} ${value > 0 ? "+" : ""}${value}`)
     .join(" / ");
+}
+
+function countSignals(signals) {
+  const counts = {};
+  signals.forEach((signal) => {
+    counts[signal] = (counts[signal] || 0) + 1;
+  });
+  return Object.entries(counts).sort((a, b) => b[1] - a[1]);
 }
 
 function effectRows(effects, beforeStats, afterStats) {
@@ -1354,8 +2345,9 @@ function effectRows(effects, beforeStats, afterStats) {
 
 function choose(choice) {
   const scene = activeCase().scenes[state.scene];
+  const effects = effectiveEffects(choice);
   const beforeStats = { ...state.stats };
-  Object.entries(choice.effects).forEach(([key, value]) => {
+  Object.entries(effects).forEach(([key, value]) => {
     state.stats[key] = clamp(state.stats[key] + value);
   });
   const afterStats = { ...state.stats };
@@ -1366,7 +2358,7 @@ function choose(choice) {
     choice: choice.title,
     choiceText: choice.text,
     result: choice.result,
-    effects: choice.effects,
+    effects,
     beforeStats,
     afterStats,
     pains: choice.pains,
@@ -1396,7 +2388,7 @@ function renderDecisionReflection(scene, choice, logIndex) {
   $("#decisionChoiceTitle").textContent = choice.title;
   $("#decisionChoiceText").textContent = choice.text;
   $("#decisionResult").textContent = choice.result;
-  $("#decisionEffects").innerHTML = effectRows(choice.effects, logItem.beforeStats, logItem.afterStats);
+  $("#decisionEffects").innerHTML = effectRows(logItem.effects, logItem.beforeStats, logItem.afterStats);
   $("#decisionPainTags").innerHTML = choice.pains.map((pain) => `<span class="tag">${escapeHtml(pain)}</span>`).join("");
   $("#decisionPrompts").innerHTML = decisionPrompts(scene, choice)
     .map((prompt) => `<li>${escapeHtml(prompt)}</li>`)
@@ -1418,12 +2410,66 @@ function continueAfterReflection() {
 }
 
 function countPains() {
-  const counts = {};
   const caseTags = activeCase().scenes.flatMap((scene) => scene.tags);
-  [...state.pains, ...caseTags].forEach((pain) => {
-    counts[pain] = (counts[pain] || 0) + 1;
+  const resourceSignals = state.resourceLimits.map(() => "リソース不足で理想対応を選べない");
+  return countSignals([...state.pains, ...caseTags, ...resourceSignals]);
+}
+
+function countDecisionPains() {
+  const resourceSignals = state.resourceLimits.map(() => "リソース不足で理想対応を選べない");
+  return countSignals([...state.pains, ...resourceSignals]);
+}
+
+function discoveryCategoryFor(pain) {
+  return (
+    discoveryCategories.find((category) => category.matches.some((keyword) => pain.includes(keyword))) ||
+    discoveryCategories[discoveryCategories.length - 1]
+  );
+}
+
+function buildDiscoveryMap() {
+  const sourceSignals = countDecisionPains();
+  const source = sourceSignals.length > 0 ? sourceSignals : countPains();
+  const categories = new Map(
+    discoveryCategories.map((category) => [
+      category.id,
+      {
+        ...category,
+        count: 0,
+        evidence: [],
+      },
+    ]),
+  );
+
+  source.forEach(([pain, count]) => {
+    const category = discoveryCategoryFor(pain);
+    const item = categories.get(category.id);
+    item.count += count;
+    item.evidence.push({ pain, count });
   });
-  return Object.entries(counts).sort((a, b) => b[1] - a[1]);
+
+  return [...categories.values()]
+    .filter((category) => category.count > 0)
+    .map((category) => ({
+      ...category,
+      evidence: category.evidence.sort((a, b) => b.count - a.count).slice(0, 3),
+    }))
+    .sort((a, b) => b.count - a.count);
+}
+
+function buildNeedHypotheses(discoveryMap = buildDiscoveryMap()) {
+  return discoveryMap.slice(0, 3).map((category) => ({
+    category: category.title,
+    text: category.need,
+    evidence: category.evidence.map((item) => item.pain),
+  }));
+}
+
+function buildValidationQuestions(discoveryMap = buildDiscoveryMap()) {
+  return discoveryMap.slice(0, 3).map((category) => ({
+    category: category.title,
+    text: category.validation,
+  }));
 }
 
 function buildSummary() {
@@ -1435,6 +2481,9 @@ function buildSummary() {
   if (record < 45) fragments.push("記録は後回しになりやすく、明日以降の支援に不安が残ります");
   if (time < 35) fragments.push("時間はかなり逼迫し、判断のたびに何かを後回しにしました");
   if (energy < 35) fragments.push("先生の余力は大きく削られ、持続可能性の課題が見えます");
+  if (state.resourceLimits.length > 0) {
+    fragments.push("後半には残り時間や余力が足りず、理想的でも選べない対応が出ました");
+  }
   if (fragments.length === 1) fragments.push("大きく崩れない流れでしたが、それでも小さな判断が積み重なりました");
   return `${fragments.join("。")}。この体験のポイントは、先生が単に忙しいのではなく、子ども、クラス、保護者、記録、校内連携を同時に見ながら判断し続けていることです。`;
 }
@@ -1447,20 +2496,57 @@ function showResult() {
   $("#summary").textContent = buildSummary();
 
   const topPains = countPains().slice(0, 10);
-  $("#finalTags").innerHTML = topPains.map(([pain]) => `<span class="tag">${pain}</span>`).join("");
+  $("#finalTags").innerHTML = topPains.map(([pain]) => `<span class="tag">${escapeHtml(pain)}</span>`).join("");
   $("#painList").innerHTML = topPains
     .map(([pain, count]) => {
       const description = painDescriptions[pain] || "一日の中で何度も現れる現場制約。";
-      return `<li><strong>${pain}</strong> (${count}): ${description}</li>`;
+      return `<li><strong>${escapeHtml(pain)}</strong> (${count}): ${escapeHtml(description)}</li>`;
     })
+    .join("");
+
+  const discoveryMap = buildDiscoveryMap();
+  $("#painMap").innerHTML = discoveryMap
+    .map((category) => {
+      const evidence = category.evidence.map((item) => `${item.pain} (${item.count})`).join(" / ");
+      return `<li><strong>${escapeHtml(category.title)}</strong> (${category.count})<br><span>${escapeHtml(
+        evidence,
+      )}</span></li>`;
+    })
+    .join("");
+  $("#needHypotheses").innerHTML = buildNeedHypotheses(discoveryMap)
+    .map(
+      (hypothesis) =>
+        `<li><strong>${escapeHtml(hypothesis.category)}</strong><br>${escapeHtml(hypothesis.text)}</li>`,
+    )
+    .join("");
+  $("#validationQuestions").innerHTML = buildValidationQuestions(discoveryMap)
+    .map((question) => `<li><strong>${escapeHtml(question.category)}</strong><br>${escapeHtml(question.text)}</li>`)
     .join("");
 
   $("#choiceLog").innerHTML = state.log
     .map(
-      (item) =>
-        `<li><strong>${item.time} ${item.scene}:</strong> ${item.choice}<br><span>${item.result}</span><br><small>${describeEffects(
+      (item) => {
+    const resourceLimit = state.resourceLimits.find((limit) => limit.time === item.time && limit.scene === item.scene);
+    const resourceLimitHtml = resourceLimit
+      ? `<br><small class="resource-log">選べなかった対応: ${escapeHtml(
+              resourceLimit.blockedChoices
+                .map(
+                  (choice) =>
+                    `${choice.title} (${choice.reason} / 実行に必要な余白: ${formatResourceValues(
+                      choice.requirement,
+                    )} / 実際の消費: ${formatResourceValues(choice.cost)})`,
+                )
+                .join(" / "),
+            )}</small>`
+      : "";
+        return (
+        `<li><strong>${escapeHtml(item.time)} ${escapeHtml(item.scene)}:</strong> ${escapeHtml(
+          item.choice,
+        )}<br><span>${escapeHtml(item.result)}</span><br><small>${escapeHtml(describeEffects(
           item.effects,
-        )}</small>${item.discoveryNote ? `<br><em>${escapeHtml(item.discoveryNote)}</em>` : ""}</li>`,
+        ))}</small>${resourceLimitHtml}${item.discoveryNote ? `<br><em>${escapeHtml(item.discoveryNote)}</em>` : ""}</li>`
+        );
+      },
     )
     .join("");
 }
@@ -1490,6 +2576,7 @@ function resetGame() {
   state.pains = [];
   state.log = [];
   state.pendingLogIndex = null;
+  state.resourceLimits = [];
   $("#intro").classList.add("hidden");
   $("#result").classList.add("hidden");
   $("#abcGame").classList.add("hidden");
@@ -1506,6 +2593,7 @@ function returnToIntro() {
   state.pains = [];
   state.log = [];
   state.pendingLogIndex = null;
+  state.resourceLimits = [];
   resetAbcState();
   $("#game").classList.add("hidden");
   $("#result").classList.add("hidden");
@@ -1522,10 +2610,16 @@ function returnToIntro() {
 function demoResult() {
   resetGame();
   activeCase().scenes.forEach((scene, index) => {
-    const choice = scene.choices[index % scene.choices.length];
-    Object.entries(choice.effects).forEach(([key, value]) => {
+    const choiceStates = choiceResourceStates(scene);
+    recordResourceLimits(scene, choiceStates);
+    const availableChoices = choiceStates.filter((item) => item.available);
+    const choice = (availableChoices[index % availableChoices.length] || availableChoices[0]).choice;
+    const effects = effectiveEffects(choice);
+    const beforeStats = { ...state.stats };
+    Object.entries(effects).forEach(([key, value]) => {
       state.stats[key] = clamp(state.stats[key] + value);
     });
+    const afterStats = { ...state.stats };
     state.pains.push(...choice.pains);
     state.log.push({
       time: scene.time,
@@ -1533,13 +2627,15 @@ function demoResult() {
       choice: choice.title,
       choiceText: choice.text,
       result: choice.result,
-      effects: choice.effects,
-      beforeStats: {},
-      afterStats: {},
+      effects,
+      beforeStats,
+      afterStats,
       pains: choice.pains,
       discoveryNote: "",
     });
+    state.scene += 1;
   });
+  state.scene = activeCase().scenes.length;
   showResult();
 }
 
@@ -1763,6 +2859,49 @@ ${supports || "未選択"}
 `;
 }
 
+function buildPainMapMarkdown(discoveryMap) {
+  return (
+    discoveryMap
+      .map((category) => {
+        const evidence = category.evidence.map((item) => `${item.pain} (${item.count})`).join(" / ");
+        return `- ${category.title}: ${category.count}\n  - Signals: ${evidence}`;
+      })
+      .join("\n") || "- 未検出"
+  );
+}
+
+function buildNeedHypothesesMarkdown(discoveryMap) {
+  return (
+    buildNeedHypotheses(discoveryMap)
+      .map((hypothesis) => `- ${hypothesis.category}: ${hypothesis.text}`)
+      .join("\n") || "- 未検出"
+  );
+}
+
+function buildValidationQuestionsMarkdown(discoveryMap) {
+  return (
+    buildValidationQuestions(discoveryMap)
+      .map((question) => `- ${question.category}: ${question.text}`)
+      .join("\n") || "- 未検出"
+  );
+}
+
+function buildResourceConstraintsMarkdown() {
+  if (state.resourceLimits.length === 0) return "- 発生なし";
+
+  return state.resourceLimits
+    .map((item) => {
+      const blockedChoices = item.blockedChoices
+        .map(
+          (choice) =>
+            `  - ${choice.title}: ${choice.reason}\n    - 実行に必要な余白: ${formatResourceValues(choice.requirement)}\n    - 実際の消費: ${formatResourceValues(choice.cost)}`,
+        )
+        .join("\n");
+      return `- ${item.time} ${item.scene} (残り時間 ${item.stats.time} / 先生の余力 ${item.stats.energy})\n${blockedChoices}`;
+    })
+    .join("\n");
+}
+
 function buildMarkdown() {
   const stats = Object.entries(state.stats)
     .map(([key, value]) => `- ${statLabels[key]}: ${value}`)
@@ -1781,6 +2920,7 @@ function buildMarkdown() {
     .filter((item) => item.discoveryNote)
     .map((item) => `- ${item.time} ${item.scene} / ${item.choice}\n  - ${item.discoveryNote.replaceAll("\n", "\n  ")}`)
     .join("\n");
+  const discoveryMap = buildDiscoveryMap();
 
   return `# ${activeCase().title} 振り返り
 
@@ -1795,6 +2935,18 @@ ${stats}
 
 ## Pain Signals
 ${pains}
+
+## Pain Map
+${buildPainMapMarkdown(discoveryMap)}
+
+## Need Hypotheses
+${buildNeedHypothesesMarkdown(discoveryMap)}
+
+## Next Validation Questions
+${buildValidationQuestionsMarkdown(discoveryMap)}
+
+## Resource Constraints
+${buildResourceConstraintsMarkdown()}
 
 ## Discovery Notes
 ${discoveryNotes || "- 未記入"}
@@ -1816,21 +2968,20 @@ async function copyTextOrShow(text, fallbackSelector, textareaSelector, statusSe
 
   textarea.value = text;
   fallback.classList.remove("hidden");
+  status.textContent = "コピー用テキストを表示しました。自動コピーできない場合は、下の選択済みテキストを Cmd+C でコピーしてください。";
   textarea.focus();
   textarea.select();
+  textarea.setSelectionRange(0, textarea.value.length);
 
   try {
-    await navigator.clipboard.writeText(text);
-    status.textContent = "コピーしました。貼り付け先で Cmd+V してください。";
-  } catch {
-    try {
-      const copied = document.execCommand("copy");
-      status.textContent = copied
-        ? "コピーしました。貼り付け先で Cmd+V してください。"
-        : "自動コピーできませんでした。下のテキストは選択済みなので Cmd+C でコピーしてください。";
-    } catch {
-      status.textContent = "自動コピーできませんでした。下のテキストは選択済みなので Cmd+C でコピーしてください。";
+    if (!navigator.clipboard || typeof navigator.clipboard.writeText !== "function") {
+      throw new Error("Clipboard API is unavailable.");
     }
+    await navigator.clipboard.writeText(text);
+    status.textContent = "自動コピーしました。貼り付け先で Cmd+V してください。念のため下にも全文を表示しています。";
+  } catch {
+    status.textContent =
+      "自動コピーできませんでした。下のテキストは選択済みなので Cmd+C でコピーしてください。HTTPSのGitHub Pagesでは自動コピーできる場合があります。";
   }
 }
 

@@ -31,6 +31,12 @@ Create a small local browser simulation where the same special-support case libr
 - 行動の背景を探る: sensory triggers, hypothesis building, and careful record sharing.
 - ケース会議前夜: fragmented records, stakeholder disagreement, and implementation planning.
 - 校外学習前日の準備: risk planning, parent anxiety, role division, and preview support.
+- 通級の先生の一日: daily resource-room instruction, short sessions, records, and return-to-class handoff.
+- 通級と在籍学級の連携: connecting resource-room findings to homeroom practice.
+- 時間割のすき間で支える: schedule changes, urgent consultations, multiple students, and limited resource-room time.
+- 明日の個別課題を選ぶ: selecting and tuning materials from prior observations.
+- 同じ教材を使い回せない: balancing reuse, individualization, and material management.
+- 授業後に次回を組み直す: turning lesson reactions into next-session design.
 
 ## Not Now
 - Login or data storage.

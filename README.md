@@ -19,8 +19,20 @@ This is a fictional customer-understanding simulation for a PdM. It helps the pl
 - 行動の背景を探る
 - ケース会議前夜
 - 校外学習前日の準備
+- 通級の先生の一日
+- 通級と在籍学級の連携
+- 時間割のすき間で支える
+- 明日の個別課題を選ぶ
+- 同じ教材を使い回せない
+- 授業後に次回を組み直す
 
-Each case has several scenes, three choices per scene, visible stat changes, per-decision discovery checkpoints, accumulated pain tags, and a Markdown reflection export.
+Each case has several scenes, three choices per scene, visible stat changes, per-decision discovery checkpoints, resource-limited choices, accumulated pain tags, a Discovery Map, and a Markdown reflection export.
+
+The Discovery Map groups decision-derived pain signals into categories, drafts need hypotheses, and lists validation questions for the next teacher or internal review conversation.
+
+Resource-limited choices make heavier responses unavailable when remaining time or teacher energy is too low. Choice cards show required resources and actual resource costs as numbers, and the reflection export records which ideal responses became unavailable.
+
+Markdown copy tries the browser Clipboard API first. Because local `file://` execution may block automatic clipboard writes, the app always shows and selects a fallback textarea so the user can copy manually with Cmd+C.
 
 The first ABC case is `対人トラブル × 衝動的に手が出る`.
 
