@@ -1,0 +1,229 @@
+<!doctype html>
+<html lang="ja">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>特別支援の先生の一日</title>
+    <link rel="stylesheet" href="./styles.css" />
+  </head>
+  <body>
+    <main class="game-shell">
+      <section class="intro" id="intro">
+        <p class="eyebrow">Customer understanding simulation</p>
+        <h1>特別支援の先生の一日</h1>
+        <p class="lead">
+          架空の小学校を舞台に、先生が1日の中で向き合う判断、時間配分、迷いを追体験します。
+          目的は正解探しではなく、現場の複雑さを感じ取ることです。
+        </p>
+        <section class="mode-picker" aria-label="モード選択">
+          <div class="case-picker-heading">
+            <p class="eyebrow">Mode</p>
+            <h2>使い方を選ぶ</h2>
+          </div>
+          <div class="mode-grid">
+            <button id="painMode" class="mode-card" type="button" aria-pressed="true">
+              <strong>先生のペインを深掘る</strong>
+              <span>プロダクト開発者向け。ケースを追体験し、最後に気になったペインカードだけを軽く掘ります。</span>
+            </button>
+            <button id="abcMode" class="mode-card" type="button" aria-pressed="false">
+              <strong>ABC分析で支援を考える</strong>
+              <span>現場学習向け。対人トラブルをA/B/Cに分類し、背景仮説と支援案を選びます。</span>
+            </button>
+          </div>
+        </section>
+
+        <section class="case-picker" id="casePicker" aria-label="ケース選択">
+          <div class="case-picker-heading">
+            <p class="eyebrow">Case library</p>
+            <h2>追体験するケースを選ぶ</h2>
+          </div>
+          <div id="caseGrid" class="case-grid"></div>
+        </section>
+
+        <section class="abc-preview hidden" id="abcPreview" aria-label="ABC分析ケース">
+          <div>
+            <p class="eyebrow">ABC case</p>
+            <h2>対人トラブル × 衝動的に手が出る</h2>
+          </div>
+          <p>
+            休み時間の順番待ちで起きたトラブルを、A: 先行事象、B: 行動、C: 後続事象に分類し、
+            どのような支援が考えられるかを選びます。
+          </p>
+        </section>
+
+        <div class="intro-actions">
+          <button id="startGame" type="button">選んだケースを始める</button>
+          <button id="randomCase" type="button">ランダムケース</button>
+          <button id="loadSamplePath" type="button">デモ結果を見る</button>
+        </div>
+      </section>
+
+      <section class="game hidden" id="game">
+        <header class="topbar">
+          <div>
+            <p class="case-kicker" id="caseName">ケース名</p>
+            <p class="eyebrow" id="sceneTime">8:05</p>
+            <h2 id="sceneTitle">朝の準備</h2>
+          </div>
+          <button id="restart" type="button">最初から</button>
+        </header>
+
+        <div class="meter-grid" aria-label="状態メーター">
+          <div class="meter">
+            <div class="meter-label"><span>子どもの安心</span><strong id="safetyValue">50</strong></div>
+            <div class="bar"><span id="safetyBar"></span></div>
+          </div>
+          <div class="meter">
+            <div class="meter-label"><span>クラス安定</span><strong id="classValue">50</strong></div>
+            <div class="bar"><span id="classBar"></span></div>
+          </div>
+          <div class="meter">
+            <div class="meter-label"><span>保護者信頼</span><strong id="parentValue">50</strong></div>
+            <div class="bar"><span id="parentBar"></span></div>
+          </div>
+          <div class="meter">
+            <div class="meter-label"><span>先生の余力</span><strong id="energyValue">65</strong></div>
+            <div class="bar"><span id="energyBar"></span></div>
+          </div>
+          <div class="meter">
+            <div class="meter-label"><span>残り時間</span><strong id="timeValue">70</strong></div>
+            <div class="bar"><span id="timeBar"></span></div>
+          </div>
+          <div class="meter">
+            <div class="meter-label"><span>記録の充実</span><strong id="recordValue">35</strong></div>
+            <div class="bar"><span id="recordBar"></span></div>
+          </div>
+        </div>
+
+        <article class="scene-card">
+          <p class="scene-index" id="sceneIndex">Scene 1 / 6</p>
+          <p class="scene-body" id="sceneBody"></p>
+          <div class="pain-tags" id="painTags"></div>
+        </article>
+
+        <section class="choices" id="choices"></section>
+
+        <section class="panel decision-reflection hidden" id="decisionReflection">
+          <p class="eyebrow">Discovery checkpoint</p>
+          <h3>今の判断で見えたこと</h3>
+          <div class="decision-summary">
+            <div>
+              <span>選んだ回答</span>
+              <strong id="decisionChoiceTitle"></strong>
+              <p id="decisionChoiceText"></p>
+            </div>
+            <div>
+              <span>起きたこと</span>
+              <p id="decisionResult"></p>
+            </div>
+          </div>
+          <div class="decision-effects" id="decisionEffects"></div>
+          <div class="pain-tags" id="decisionPainTags"></div>
+          <div class="decision-prompts">
+            <p class="panel-note">メモは任意です。気になった問いだけ残してください。</p>
+            <ul id="decisionPrompts"></ul>
+          </div>
+          <label class="decision-note">
+            この場面で見えたペイン、違和感、プロダクト仮説
+            <textarea id="decisionNote" rows="4" placeholder="例: 先生は本人対応を優先するほど、記録や保護者説明の準備を後回しにしていた"></textarea>
+          </label>
+          <div class="result-actions">
+            <button id="continueScene" type="button">次へ</button>
+          </div>
+        </section>
+      </section>
+
+      <section class="result hidden" id="result">
+        <div class="result-heading">
+          <div>
+            <p class="eyebrow">End of case reflection</p>
+            <h2 id="resultTitle">ケースの振り返り</h2>
+          </div>
+        </div>
+        <div class="result-layout">
+          <div class="panel">
+            <h3>あなたの一日</h3>
+            <p id="summary"></p>
+            <div class="final-tags" id="finalTags"></div>
+          </div>
+          <div class="panel">
+            <h3>見えてきたペイン</h3>
+            <ul id="painList"></ul>
+          </div>
+        </div>
+        <div class="timeline panel">
+          <h3>判断ログ</h3>
+          <ol id="choiceLog"></ol>
+        </div>
+        <div class="result-actions">
+          <button id="copyReflection" type="button">Markdownコピー</button>
+          <button id="playAgain" type="button">このケースをもう一度</button>
+          <button id="backToIntro" type="button">最初の画面へ</button>
+        </div>
+        <div id="copyFallback" class="panel copy-fallback hidden">
+          <h3>コピー用テキスト</h3>
+          <p class="panel-note" id="copyStatus">下のテキストを選択済みです。自動コピーできない場合は Cmd+C でコピーしてください。</p>
+          <textarea id="copyFallbackText" rows="10" readonly></textarea>
+        </div>
+      </section>
+
+      <section class="abc-game hidden" id="abcGame">
+        <header class="topbar">
+          <div>
+            <p class="case-kicker">ABC分析モード</p>
+            <p class="eyebrow">対人トラブル × 衝動性</p>
+            <h2>順番待ちで手が出た場面を整理する</h2>
+          </div>
+          <button id="abcRestart" type="button">最初から</button>
+        </header>
+
+        <article class="scene-card">
+          <p class="scene-index">Case</p>
+          <p class="scene-body" id="abcScenario"></p>
+          <div class="pain-tags">
+            <span class="tag">衝動性</span>
+            <span class="tag">対人トラブル</span>
+            <span class="tag">ABC分析</span>
+          </div>
+        </article>
+
+        <section class="panel">
+          <h3>1. カードをA/B/Cに分類する</h3>
+          <p class="panel-note">カードはランダムに並びます。正解当てではなく、行動の前後関係を整理する練習です。</p>
+          <div id="abcCards" class="abc-card-list"></div>
+        </section>
+
+        <section class="abc-two-column">
+          <div class="panel">
+            <h3>2. 背景仮説を選ぶ</h3>
+            <div id="hypothesisCards" class="select-card-list"></div>
+          </div>
+          <div class="panel">
+            <h3>3. 支援カードを選ぶ</h3>
+            <p class="panel-note">プロンプト、代替行動、強化、先行事象や後続事象の調整を含めて複数選べます。</p>
+            <div id="supportCards" class="select-card-list"></div>
+          </div>
+        </section>
+
+        <div class="result-actions">
+          <button id="showAbcFeedback" type="button">フィードバックを見る</button>
+          <button id="copyAbcReflection" type="button">Markdownコピー</button>
+          <button id="abcBackToIntro" type="button">最初の画面へ</button>
+        </div>
+
+        <div id="abcCopyFallback" class="panel copy-fallback hidden">
+          <h3>コピー用テキスト</h3>
+          <p class="panel-note" id="abcCopyStatus">下のテキストを選択済みです。自動コピーできない場合は Cmd+C でコピーしてください。</p>
+          <textarea id="abcCopyFallbackText" rows="10" readonly></textarea>
+        </div>
+
+        <section id="abcFeedback" class="panel hidden">
+          <h3>フィードバック</h3>
+          <div id="abcFeedbackBody"></div>
+        </section>
+      </section>
+    </main>
+
+    <script src="./app.js"></script>
+  </body>
+</html>
