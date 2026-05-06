@@ -2208,16 +2208,17 @@ function choiceResourceStates(scene) {
 }
 
 function resourceMessage(choiceState) {
-  const detail = `実行に必要な余白: ${formatResourceValues(choiceState.requirement)} / 実際の消費: ${formatResourceValues(
-    choiceState.cost,
-  )}`;
+  const detail = [
+    `実行に必要な余白: ${formatResourceValues(choiceState.requirement)}`,
+    `実際の消費: ${formatResourceValues(choiceState.cost)}`,
+  ];
   if (choiceState.forcedAvailable) {
-    return `最低限の対応として選択可 / ${detail}`;
+    return ["最低限の対応として選択可", ...detail].join("\n");
   }
   if (!choiceState.available) {
-    return `今は選べません: ${choiceState.shortfalls.join(" / ")} / ${detail}`;
+    return [`今は選べません: ${choiceState.shortfalls.join(" / ")}`, ...detail].join("\n");
   }
-  return detail;
+  return detail.join("\n");
 }
 
 function recordResourceLimits(scene, choiceStates) {

@@ -329,6 +329,7 @@ h4 {
 
 .choice-card .resource-note {
   color: var(--amber);
+  white-space: pre-line;
 }
 
 .choice-card.is-locked {
