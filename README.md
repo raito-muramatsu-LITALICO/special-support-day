@@ -25,6 +25,14 @@ This is a fictional customer-understanding simulation for a PdM. It helps the pl
 - 明日の個別課題を選ぶ
 - 同じ教材を使い回せない
 - 授業後に次回を組み直す
+- 年度初めの引継ぎが薄い
+- 最初の保護者面談と計画同意
+- 交流級担任を巻き込む
+- 同じ時間に違う教科が重なる
+- 通常級で気になる子に明日試す支援
+- 授業開始前のざわつきに対応する
+
+Cases can be filtered by category chips such as `保護者`, `校内連携`, `通級`, `教材・授業`, and `通常級`.
 
 Each case has several scenes, three choices per scene, visible stat changes, per-decision discovery checkpoints, resource-limited choices, accumulated pain tags, a Discovery Map, and a Markdown reflection export.
 
@@ -43,3 +51,5 @@ The first ABC case is `対人トラブル × 衝動的に手が出る`.
 
 ## Important Note
 This is not a clinical, legal, or training authority. Scenarios are fictional and should be reviewed with actual teachers before being used as learning material.
+
+Some newer cases are abstracted from a domain-expert document, but the app does not reproduce real cases directly. Public scenarios should remain fictional and anonymized.

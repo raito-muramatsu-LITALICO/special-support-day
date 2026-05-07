@@ -16,7 +16,7 @@ const statLabels = {
   record: "記録の充実",
 };
 
-const caseLibrary = [
+const baseCaseLibrary = [
   {
     id: "full-day",
     title: "通常級と支援のはざまの一日",
@@ -1683,6 +1683,627 @@ const caseLibrary = [
   },
 ];
 
+const expertCaseLibrary = [
+  {
+    id: "handoff-with-thin-records",
+    title: "年度初めの引継ぎが薄い",
+    focus: "引継ぎ / 先入観 / 支援計画",
+    category: "計画・引継ぎ",
+    tags: ["引継ぎ", "支援計画", "保護者面談"],
+    description: "前任者の口頭情報と薄い記録を受け取り、新担任として何を確かめるかを選ぶケース。",
+    scenes: [
+      {
+        time: "8:15",
+        title: "前任者メモを開く",
+        body:
+          "新年度の朝。前任者から受け取ったメモには、本人の苦手さと保護者対応の注意点が短く書かれています。学習の進捗やうまくいった支援はほとんど残っていません。",
+        tags: ["引継ぎ", "情報不足", "支援計画"],
+        choices: [
+          {
+            title: "前年度の学習成果物を探す",
+            text: "本人が何に取り組み、どこまでできていたかを紙ファイルや記録から確認します。",
+            result: "学習の手がかりは増えましたが、朝の準備時間を大きく使いました。",
+            effects: { record: 16, safety: 4, time: -14, energy: -6 },
+            pains: ["前年度情報と今の実態の接続負荷"],
+          },
+          {
+            title: "まず一日観察して決める",
+            text: "メモを鵜呑みにせず、本人の今の様子を見てから支援を組みます。",
+            result: "先入観は抑えられましたが、初日の支援は手探りになりました。",
+            effects: { safety: 8, record: -3, time: -5, energy: -4 },
+            pains: ["不確かなまま進める不安"],
+          },
+          {
+            title: "前任者に追加で聞く項目を作る",
+            text: "苦手さではなく、強み、うまくいった声かけ、家庭共有の工夫に絞って聞きます。",
+            result: "聞き取りの質は上がりましたが、相手の時間をもらう調整が必要です。",
+            effects: { record: 12, parentTrust: 4, time: -11, energy: -7 },
+            pains: ["引継ぎで何を聞くかが曖昧"],
+          },
+        ],
+      },
+      {
+        time: "10:20",
+        title: "職員室の雑談",
+        body:
+          "休み時間、同僚から「あの保護者は細かいから気をつけて」と声をかけられました。経験談として助かる一方、先入観になりそうです。",
+        tags: ["先入観", "保護者コミュニケーション", "校内連携"],
+        choices: [
+          {
+            title: "具体的な事実だけ聞く",
+            text: "印象ではなく、いつ、何が起き、学校はどう対応したのかに絞って確認します。",
+            result: "情報の質は上がりましたが、会話には少し緊張感が出ました。",
+            effects: { record: 14, parentTrust: 3, time: -8, energy: -6 },
+            pains: ["口頭情報が先入観になりやすい"],
+          },
+          {
+            title: "助言として受け取り、今は深追いしない",
+            text: "同僚の経験を否定せず、自分の面談で確かめる前提にします。",
+            result: "関係は保てましたが、何を気にすべきかは曖昧なままです。",
+            effects: { classStable: 4, time: -3, record: -4, energy: -2 },
+            pains: ["先入観と経験知の扱いにくさ"],
+          },
+          {
+            title: "管理職にも背景を確認する",
+            text: "学校として残している事実や今年度の説明方針を確認します。",
+            result: "安全な対応方針は見えましたが、初動から調整の時間を使いました。",
+            effects: { parentTrust: 8, record: 8, time: -12, energy: -6 },
+            pains: ["保護者対応と校内調整の二重負荷"],
+          },
+        ],
+      },
+      {
+        time: "16:35",
+        title: "明日の初回面談に備える",
+        body:
+          "明日は保護者との初回面談です。引継ぎ情報には心配事が多く、強みや家庭での様子をどう聞くかを準備する必要があります。",
+        tags: ["保護者コミュニケーション", "強み共有", "面談準備"],
+        choices: [
+          {
+            title: "強みから聞く面談メモを作る",
+            text: "家庭での得意、好きなこと、学校で活かせそうな場面から話せるようにします。",
+            result: "関係づくりの準備は整いましたが、放課後の時間と余力を使いました。",
+            effects: { parentTrust: 14, safety: 6, record: 8, time: -14, energy: -8 },
+            pains: ["強みから入る関係づくりの時間"],
+          },
+          {
+            title: "確認事項を箇条書きにする",
+            text: "配慮事項、連絡手段、緊急時の確認だけを短く整理します。",
+            result: "必要事項は押さえましたが、保護者の願いを聞く余白は少なめです。",
+            effects: { record: 9, parentTrust: 4, time: -6, energy: -3 },
+            pains: ["確認事項だけでは関係が深まりにくい"],
+          },
+          {
+            title: "管理職に同席を相談する",
+            text: "年度初めの認識ズレを防ぐため、学校としての説明体制を整えます。",
+            result: "説明の安定感は増しましたが、面談調整がさらに増えました。",
+            effects: { parentTrust: 8, record: 6, time: -11, energy: -5 },
+            pains: ["安心づくりにも組織調整がいる"],
+          },
+        ],
+      },
+    ],
+  },
+  {
+    id: "first-parent-meeting-consent",
+    title: "最初の保護者面談と計画同意",
+    focus: "保護者説明 / 強み共有 / 同意取得",
+    category: "保護者",
+    tags: ["面談", "同意取得", "強み共有"],
+    description: "計画の目的が伝わりにくい中で、保護者の不安を受け止めながら同意まで進めるケース。",
+    scenes: [
+      {
+        time: "15:10",
+        title: "面談の入口",
+        body:
+          "年度初めの面談です。保護者は少し緊張した様子で、封筒に入った計画書を持っています。短い時間で関係づくりと必要な確認を両方進める必要があります。",
+        tags: ["保護者コミュニケーション", "面談", "強み共有"],
+        choices: [
+          {
+            title: "家庭での強みから聞く",
+            text: "最近できたこと、好きなこと、家で安心している場面を先に聞きます。",
+            result: "保護者の表情は少し和らぎましたが、計画説明の時間は短くなりました。",
+            effects: { parentTrust: 18, safety: 6, time: -12, energy: -6 },
+            pains: ["強みから入る関係づくりの時間"],
+          },
+          {
+            title: "計画書の目的を先に説明する",
+            text: "教育支援計画と指導計画が何のためにあるのかを短く説明します。",
+            result: "見通しは立ちましたが、保護者の気持ちを聞く前に説明が進みました。",
+            effects: { record: 10, parentTrust: 6, time: -8, energy: -4 },
+            pains: ["計画説明のわかりにくさ"],
+          },
+          {
+            title: "困っていることを先に聞く",
+            text: "家庭で一番心配なことを聞き、学校で見ていく観点につなげます。",
+            result: "不安は受け止められましたが、苦手さ中心の面談になりかけました。",
+            effects: { parentTrust: 10, record: 8, time: -10, energy: -7 },
+            pains: ["苦手中心になりやすい面談"],
+          },
+        ],
+      },
+      {
+        time: "15:35",
+        title: "学校と家庭で見え方が違う",
+        body:
+          "保護者は「家では落ち着いています」と話します。一方、学校では刺激が多い場面で集中が切れやすい様子があります。どちらが正しいかではなく、場面差として扱いたいところです。",
+        tags: ["認識ズレ", "アセスメント", "家庭情報"],
+        choices: [
+          {
+            title: "場面差として一緒に整理する",
+            text: "家庭と学校で違う条件を並べ、支援のヒントとして扱います。",
+            result: "責め合いにならず理解は深まりましたが、整理に時間がかかりました。",
+            effects: { parentTrust: 16, record: 12, safety: 6, time: -14, energy: -8 },
+            pains: ["家庭情報と学校支援をつなぐ負荷"],
+          },
+          {
+            title: "学校での困りを具体的に伝える",
+            text: "学校で観察している場面を、事実と支援に分けて説明します。",
+            result: "必要な情報は伝わりましたが、保護者には少し重く響きました。",
+            effects: { record: 12, parentTrust: -2, time: -8, energy: -5 },
+            pains: ["事実説明だけでは不安が残る"],
+          },
+          {
+            title: "家庭での工夫を詳しく聞く",
+            text: "家でうまくいっている関わり方を聞き、学校で試せる形に変えます。",
+            result: "強みと工夫は見えましたが、学校で再現するには調整が必要です。",
+            effects: { parentTrust: 14, safety: 8, record: 8, time: -11, energy: -6 },
+            pains: ["家庭の工夫を学校に移す難しさ"],
+          },
+        ],
+      },
+      {
+        time: "16:05",
+        title: "同意と記録を残す",
+        body:
+          "計画内容への同意確認に入ります。書面だけでは目的や見るポイントが伝わりにくく、面談内容を明日の支援にも反映したい場面です。",
+        tags: ["同意取得", "情報反映", "記録負荷"],
+        choices: [
+          {
+            title: "見るポイントを一緒に確認する",
+            text: "本人の願い、今年度の重点、家庭と学校の役割を一緒に見ます。",
+            result: "納得感は上がりましたが、面談時間をかなり使いました。",
+            effects: { parentTrust: 18, record: 10, time: -15, energy: -8 },
+            pains: ["計画説明のわかりにくさ"],
+          },
+          {
+            title: "面談直後に支援メモへ落とす",
+            text: "家庭情報、学校で試すこと、次回確認することに分けて記録します。",
+            result: "支援に使える記録になりましたが、放課後の余力は大きく減りました。",
+            effects: { record: 18, parentTrust: 8, safety: 4, time: -14, energy: -9 },
+            pains: ["面談内容を支援に変換する負荷"],
+          },
+          {
+            title: "持ち帰って確認してもらう",
+            text: "無理にその場で進めず、質問があれば後日受けることにします。",
+            result: "保護者の負担感は下がりましたが、同意取得は後続タスクになりました。",
+            effects: { parentTrust: 6, time: -4, record: -2, energy: -3 },
+            pains: ["同意取得の確認漏れ"],
+          },
+        ],
+      },
+    ],
+  },
+  {
+    id: "mainstream-teacher-ownership",
+    title: "交流級担任を巻き込む",
+    focus: "交流級連携 / 当事者性 / 役割分担",
+    category: "校内連携",
+    tags: ["交流級", "役割分担", "称賛"],
+    description: "支援級任せになりがちな交流場面で、通常級担任と一緒に手立てを作るケース。",
+    scenes: [
+      {
+        time: "9:05",
+        title: "交流の予定確認",
+        body:
+          "交流級担任から「今日、何時間目に来ますか。支援員はつきますか」と聞かれました。実務確認は必要ですが、本人の目標や手立てまでは共有できていません。",
+        tags: ["交流級連携", "役割分担", "校内連携"],
+        choices: [
+          {
+            title: "予定と一緒に今日の目標も伝える",
+            text: "参加する時間、支援員の有無、交流級で見てほしい行動を一つ添えます。",
+            result: "交流級での視点がそろいましたが、朝の短い会話では情報量が多めです。",
+            effects: { classStable: 12, safety: 8, record: 6, time: -9, energy: -5 },
+            pains: ["交流級での目標設定負荷"],
+          },
+          {
+            title: "実務だけ短く答える",
+            text: "時間と支援員の動きだけを伝え、詳しい支援は支援級側で抱えます。",
+            result: "話は早く済みましたが、交流級担任は支援の目的を持ちにくいままです。",
+            effects: { time: 4, classStable: 3, safety: -4, record: -3 },
+            pains: ["支援級任せになりやすい"],
+          },
+          {
+            title: "放課後に5分だけ相談をお願いする",
+            text: "今は最低限にし、今日の様子をもとに短い相談時間を確保します。",
+            result: "話す場は作れましたが、放課後の予定がさらに詰まりました。",
+            effects: { classStable: 8, record: 6, time: -7, energy: -5 },
+            pains: ["校内連携の時間確保"],
+          },
+        ],
+      },
+      {
+        time: "10:45",
+        title: "交流授業中のよい場面",
+        body:
+          "交流先で、本人が支援級で練習していた伝え方を使えました。周囲は気づいていません。今ここで意味づけるか、授業後に共有するか迷います。",
+        tags: ["称賛", "一般化", "交流級連携"],
+        choices: [
+          {
+            title: "交流級担任にも意味づけて伝える",
+            text: "授業の切れ目に、今の行動が支援級で練習してきたことだと共有します。",
+            result: "担任の理解は深まりましたが、授業の流れを止めない配慮が必要でした。",
+            effects: { classStable: 10, safety: 10, record: 6, time: -9, energy: -6 },
+            pains: ["交流級担任の当事者性づくり"],
+          },
+          {
+            title: "本人にだけ短く称賛する",
+            text: "本人にだけ聞こえる声で、使えた言葉を具体的に認めます。",
+            result: "本人の安心は高まりましたが、交流級担任には支援の意味が伝わりにくいままです。",
+            effects: { safety: 16, classStable: 4, time: -4, energy: -3 },
+            pains: ["支援の意味づけの不足"],
+          },
+          {
+            title: "あとで記録して共有する",
+            text: "今は授業を止めず、放課後に成功場面として共有します。",
+            result: "授業は保てましたが、本人への即時の強化は弱くなりました。",
+            effects: { record: 10, classStable: 6, safety: -2, time: -5 },
+            pains: ["即時対応と記録共有のトレードオフ"],
+          },
+        ],
+      },
+      {
+        time: "16:10",
+        title: "支援の引き渡し",
+        body:
+          "放課後、交流級担任に明日から試す一手を共有します。相手も忙しく、長い説明は難しそうです。",
+        tags: ["校内連携", "支援共有", "実行負荷"],
+        choices: [
+          {
+            title: "明日試す一手に絞る",
+            text: "声かけ、見守る場面、うまくいった時の称賛だけを一枚にします。",
+            result: "実行しやすい共有になりましたが、背景説明は薄くなりました。",
+            effects: { classStable: 12, record: 8, safety: 5, time: -9, energy: -5 },
+            pains: ["明日試せる手立てへの変換負荷"],
+          },
+          {
+            title: "本人の見立てから丁寧に説明する",
+            text: "背景仮説、支援意図、観察ポイントまで共有します。",
+            result: "理解は深まりましたが、相手の時間も自分の余力も大きく使いました。",
+            effects: { classStable: 16, record: 12, time: -16, energy: -10 },
+            pains: ["丁寧に扱うほど調整が増える"],
+          },
+          {
+            title: "教材とメモだけ渡す",
+            text: "詳しい説明は後日にし、明日使えるものだけ渡します。",
+            result: "共有は早く済みましたが、意図と違う使われ方をするかもしれません。",
+            effects: { time: 3, record: 4, classStable: -3, energy: -2 },
+            pains: ["教材意図を共有する負荷"],
+          },
+        ],
+      },
+    ],
+  },
+  {
+    id: "mixed-subjects-same-period",
+    title: "同じ時間に違う教科が重なる",
+    focus: "複数児童 / 時間割 / 教材準備",
+    category: "教材・授業",
+    tags: ["複数児童", "時間割", "補助員"],
+    description: "支援級で複数児童の教科と交流予定が重なり、その場しのぎにしない準備を考えるケース。",
+    scenes: [
+      {
+        time: "8:30",
+        title: "今日の時間割を見比べる",
+        body:
+          "2時間目、ある児童は算数、別の児童は国語、もう一人は交流級の音楽に行く予定です。交流先の時間割変更もあり、準備した教材が合うか不安です。",
+        tags: ["時間割", "教材準備", "複数児童"],
+        choices: [
+          {
+            title: "交流先の予定を確認し直す",
+            text: "持ち物、変更、支援員の動きを先に確認してから支援級内の教材を決めます。",
+            result: "予定のズレは減りましたが、朝の準備時間を大きく使いました。",
+            effects: { classStable: 12, record: 8, time: -14, energy: -7 },
+            pains: ["交流先時間割の把握負荷"],
+          },
+          {
+            title: "支援級内の教材を先に整える",
+            text: "交流変更は起きる前提で、支援級にいる児童の学習を安定させます。",
+            result: "教室内は動かしやすくなりましたが、交流先での混乱リスクは残ります。",
+            effects: { classStable: 10, safety: 4, time: -9, energy: -4 },
+            pains: ["交流学級の様子が把握できない"],
+          },
+          {
+            title: "今日は共通活動に寄せる",
+            text: "教科差を少し緩め、全員が取り組める生活単元的な活動に寄せます。",
+            result: "場はまとまりましたが、個別の教科学習の進度は薄くなりました。",
+            effects: { classStable: 14, safety: 7, record: -4, time: -6 },
+            pains: ["個別進度と場の安定の葛藤"],
+          },
+        ],
+      },
+      {
+        time: "10:05",
+        title: "同時に手が止まる",
+        body:
+          "算数の児童は問題の意味で止まり、国語の児童は音読を嫌がり、音楽へ行く児童は持ち物が見つかりません。補助員も別対応中です。",
+        tags: ["同時対応", "支援員配置", "授業運営"],
+        choices: [
+          {
+            title: "全員に短い自立課題を渡す",
+            text: "まず3分でできる課題に切り替え、順番に個別対応します。",
+            result: "場は崩れませんでしたが、課題切り替えの設計力が必要でした。",
+            effects: { classStable: 14, safety: 6, time: -9, energy: -7 },
+            pains: ["複数学年・複数教科の同時進行"],
+          },
+          {
+            title: "支援員に持ち物確認を任せる",
+            text: "交流に出る児童の準備を支援員に任せ、担任は教室内の学習を見る。",
+            result: "分担で回りましたが、支援員への依存が強くなりました。",
+            effects: { classStable: 10, safety: 5, time: -7, energy: -4 },
+            pains: ["補助員配置への依存"],
+          },
+          {
+            title: "一番崩れそうな児童から対応する",
+            text: "全員を同時に見ようとせず、負荷の高い児童を先に支えます。",
+            result: "大きな崩れは防げましたが、他の児童の待ち時間が増えました。",
+            effects: { safety: 14, classStable: -4, time: -10, energy: -8 },
+            pains: ["一人に向き合うほど全体が止まる"],
+          },
+        ],
+      },
+      {
+        time: "15:30",
+        title: "明日の教材を組み替える",
+        body:
+          "放課後、明日の時間割を見ながら教材を組み替えます。今日の混乱を減らすには、教材、交流予定、補助員配置をまとめて考える必要があります。",
+        tags: ["教材準備", "時間不足", "役割分担"],
+        choices: [
+          {
+            title: "児童別に明日の流れを作る",
+            text: "各児童の教科、交流、使う教材、支援員の動きを一枚にします。",
+            result: "明日の見通しは強まりましたが、放課後の時間を大きく使いました。",
+            effects: { classStable: 16, safety: 8, record: 12, time: -16, energy: -10 },
+            pains: ["複数学年・複数教科の同時進行"],
+          },
+          {
+            title: "共通で使える教材だけ整える",
+            text: "個別差は残しつつ、導入や待ち時間に使える共通教材を用意します。",
+            result: "再利用しやすい準備になりましたが、一人ひとりへの最適化は浅くなりました。",
+            effects: { classStable: 10, time: -9, energy: -5, record: 5 },
+            pains: ["個別最適と再利用性の葛藤"],
+          },
+          {
+            title: "明日の朝に再確認する",
+            text: "今日中に作り込まず、最新の時間割を見て朝に判断します。",
+            result: "今日は帰れますが、明日の朝の判断負荷が増えます。",
+            effects: { time: 5, energy: 3, classStable: -6, record: -4 },
+            pains: ["準備不足が当日負荷になる"],
+          },
+        ],
+      },
+    ],
+  },
+  {
+    id: "mainstream-first-support",
+    title: "通常級で気になる子に明日試す支援",
+    focus: "通常級支援 / 困りの入口 / 明日の一手",
+    category: "通常級",
+    tags: ["通常級", "明日の一手", "見立て"],
+    description: "通常級担任が、深いアセスメントまで行く余力がない中で、明日試せる支援を選ぶケース。",
+    scenes: [
+      {
+        time: "14:05",
+        title: "授業中に何度も止まる",
+        body:
+          "通常級の授業中、一人の児童が課題に入れず、何度も声をかける必要があります。授業準備、校務分掌、保護者対応もあり、深く調べる時間はほとんどありません。",
+        tags: ["通常級支援", "時間不足", "見立て"],
+        choices: [
+          {
+            title: "困りの入口を一つに絞る",
+            text: "聞く、書く、注意、切り替えなど、今一番つまずいている入口だけを仮に選びます。",
+            result: "考える範囲は絞れましたが、背景を取り違える不安は残ります。",
+            effects: { record: 10, classStable: 5, time: -6, energy: -4 },
+            pains: ["通常級担任の支援余力不足"],
+          },
+          {
+            title: "まず授業を進める",
+            text: "今日は全体進行を優先し、個別支援は放課後に考えます。",
+            result: "授業は進みましたが、同じ困りが明日も起きる可能性があります。",
+            effects: { classStable: 10, time: 4, safety: -8, record: -4 },
+            pains: ["今対応するか後で設計するか"],
+          },
+          {
+            title: "隣の先生に短く相談する",
+            text: "同じような場面を見たことがあるか、すぐ試せる工夫があるかを聞きます。",
+            result: "ヒントは得られましたが、自分のクラスに合うかはまだ分かりません。",
+            effects: { classStable: 5, record: 5, time: -8, energy: -4 },
+            pains: ["他者の実践を自分の場面に移す難しさ"],
+          },
+        ],
+      },
+      {
+        time: "16:20",
+        title: "明日試す一手を選ぶ",
+        body:
+          "表面上は『やる気がない』ようにも見えますが、指示理解、書字、注意の維持、見通しの弱さなど複数の可能性があります。大きな計画を作る余力はありません。",
+        tags: ["明日の一手", "支援設計", "通常級支援"],
+        choices: [
+          {
+            title: "最初の一問だけ一緒に始める",
+            text: "課題開始で止まりやすいと見立て、入口だけ支えます。",
+            result: "明日試しやすい手立てになりましたが、他の困りには届かないかもしれません。",
+            effects: { safety: 10, classStable: 8, time: -6, energy: -4 },
+            pains: ["明日試せる手立てへの変換負荷"],
+          },
+          {
+            title: "指示を見える形にする",
+            text: "黒板の指示を小さく分け、終わったら消せるチェックにします。",
+            result: "全体にも使える支援になりましたが、準備と板書設計が増えました。",
+            effects: { classStable: 12, safety: 8, time: -10, energy: -6, record: 4 },
+            pains: ["全体支援と個別支援の粒度差"],
+          },
+          {
+            title: "本人だけ別プリントにする",
+            text: "量と難易度を下げ、まず最後までできる課題にします。",
+            result: "本人は取り組めそうですが、周囲からの見え方への配慮が必要です。",
+            effects: { safety: 12, classStable: -3, time: -8, energy: -5 },
+            pains: ["配慮が目立つことへの配慮"],
+          },
+        ],
+      },
+      {
+        time: "17:05",
+        title: "保護者にどう伝えるか",
+        body:
+          "保護者に『できていない』と伝えるだけでは信頼を失いそうです。一方、何も伝えないと家庭との協力は作れません。",
+        tags: ["保護者コミュニケーション", "通常級支援", "説明責任"],
+        choices: [
+          {
+            title: "試す工夫と一緒に伝える",
+            text: "困りの事実、明日試す手立て、うまくいったら家庭でほめてほしい点を共有します。",
+            result: "協力関係に近づきましたが、言葉選びと準備に時間を使いました。",
+            effects: { parentTrust: 16, record: 10, safety: 5, time: -14, energy: -8 },
+            pains: ["保護者を支援チームにする説明負荷"],
+          },
+          {
+            title: "できた場面を中心に伝える",
+            text: "今日できたことを先に伝え、困りは明日も見ていくと添えます。",
+            result: "柔らかく伝わりましたが、家庭に協力してほしいことは曖昧です。",
+            effects: { parentTrust: 10, time: -6, energy: -3, record: 2 },
+            pains: ["よい報告だけでは支援がつながらない"],
+          },
+          {
+            title: "今は校内で様子を見る",
+            text: "家庭連絡は急がず、数日試してから共有します。",
+            result: "連絡負荷は下がりましたが、後で『早く知りたかった』となるかもしれません。",
+            effects: { time: 4, energy: 2, parentTrust: -5, record: -2 },
+            pains: ["家庭連絡のタイミング判断"],
+          },
+        ],
+      },
+    ],
+  },
+  {
+    id: "noisy-class-start",
+    title: "授業開始前のざわつきに対応する",
+    focus: "学級経営 / 即時対応 / 肯定的注目",
+    category: "通常級",
+    tags: ["学級経営", "即時対応", "肯定的注目"],
+    description: "授業前に全体が浮き足立つ場面で、叱責せずに学びへ戻す方法を選ぶケース。",
+    scenes: [
+      {
+        time: "10:35",
+        title: "教室がざわついている",
+        body:
+          "休み時間明け、教室全体が騒がしく、数人が立ち歩いています。静かに待っている児童も不安そうにこちらを見ています。",
+        tags: ["学級経営", "即時対応", "心理的安全"],
+        choices: [
+          {
+            title: "全員で短い動作をそろえる",
+            text: "立つ、座る、深呼吸するなど、体を使って注意を集めます。",
+            result: "全体の流れは戻りましたが、タイミングと声の出し方に瞬発力が要ります。",
+            effects: { classStable: 14, safety: 6, time: -5, energy: -5 },
+            pains: ["即時対応のスピード負荷"],
+          },
+          {
+            title: "静かに待つ",
+            text: "怒鳴らず、先生が前に立って落ち着く空気を作ります。",
+            result: "叱責は避けられましたが、待つ時間に全体の不安定さが広がりました。",
+            effects: { safety: 6, classStable: -4, time: -8, energy: -4 },
+            pains: ["待つ支援のコスト"],
+          },
+          {
+            title: "強く注意して止める",
+            text: "これ以上広がらないよう、すぐに注意して静かにさせます。",
+            result: "一時的に静かになりましたが、叱られる空気で緊張が残りました。",
+            effects: { classStable: 8, time: 3, safety: -12, energy: -3 },
+            pains: ["叱責が二次的な不安を生む"],
+          },
+        ],
+      },
+      {
+        time: "10:42",
+        title: "注目を集めたい児童",
+        body:
+          "いつも場の中心になりやすい児童が、今日も周囲の反応を引き出しています。注意するとさらに目立つ可能性があります。",
+        tags: ["肯定的注目", "行動の背景", "学級経営"],
+        choices: [
+          {
+            title: "先に小さな手伝いを頼む",
+            text: "配布物や黒板消しなど、役割を渡して肯定的な注目を作ります。",
+            result: "本人の注目欲求は少し満たされましたが、事前に役割を用意する手間があります。",
+            effects: { safety: 12, classStable: 12, time: -8, energy: -5 },
+            pains: ["肯定的注目の準備負荷"],
+          },
+          {
+            title: "目立つ行動には反応しすぎない",
+            text: "安全だけ確認し、落ち着いた瞬間に短く認めます。",
+            result: "注目の偏りは抑えられましたが、周囲には意図が見えにくい対応です。",
+            effects: { classStable: 8, safety: 5, time: -5, energy: -4 },
+            pains: ["予防的支援の見えにくさ"],
+          },
+          {
+            title: "個別に席へ戻るよう伝える",
+            text: "周囲から切り離し、本人に短く行動を修正してもらいます。",
+            result: "行動は止まりましたが、本人との関係性には緊張が残りました。",
+            effects: { classStable: 7, safety: -5, time: -4, energy: -4 },
+            pains: ["行動だけを見るリスク"],
+          },
+        ],
+      },
+      {
+        time: "11:25",
+        title: "次に備える記録",
+        body:
+          "授業後、今日のざわつきと対応をどう残すか迷います。次回に生かしたい一方、次の授業準備もあります。",
+        tags: ["記録負荷", "学級経営", "次回設計"],
+        choices: [
+          {
+            title: "効いた対応を一つ記録する",
+            text: "何が起き、どの対応で戻れたかを短く残します。",
+            result: "次回の手がかりは残りましたが、準備時間が削られました。",
+            effects: { record: 14, classStable: 6, time: -8, energy: -4 },
+            pains: ["学級経営の型づくり"],
+          },
+          {
+            title: "次の授業準備を優先する",
+            text: "記録は最低限にし、次の教材と板書を整えます。",
+            result: "次の授業は安定しましたが、今日の学びは流れやすくなりました。",
+            effects: { classStable: 8, time: -5, record: -5, energy: -3 },
+            pains: ["省略した記録は後で効いてくる"],
+          },
+          {
+            title: "学年で共有する",
+            text: "同じような場面が他クラスにもないか、短く共有します。",
+            result: "学年の支援につながる可能性はありますが、共有の時間が必要です。",
+            effects: { classStable: 10, record: 8, time: -12, energy: -6 },
+            pains: ["校内連携の時間確保"],
+          },
+        ],
+      },
+    ],
+  },
+];
+
+const caseMetadata = {
+  "full-day": { category: "基本", tags: ["時間不足", "保護者連絡", "授業運営"] },
+  "school-refusal": { category: "保護者", tags: ["登校しぶり", "朝の時間圧", "再登校支援"] },
+  "parent-gap": { category: "保護者", tags: ["認識ズレ", "説明責任", "記録"] },
+  "inclusive-class": { category: "校内連携", tags: ["交流学級", "合理的配慮", "周囲への説明"] },
+  "behavior-background": { category: "見立て", tags: ["行動の背景", "感覚過敏", "仮説"] },
+  "case-meeting": { category: "計画・引継ぎ", tags: ["ケース会議", "合意形成", "支援計画"] },
+  "field-trip": { category: "行事・準備", tags: ["校外学習", "リスク管理", "見通し支援"] },
+  "resource-room-day": { category: "通級", tags: ["個別指導", "記録", "在籍学級"] },
+  "resource-room-collaboration": { category: "通級", tags: ["担任連携", "教室での実行", "支援方針"] },
+  "resource-room-time": { category: "通級", tags: ["取り出し時間", "予定変更", "複数児童"] },
+  "lesson-prep-individual-task": { category: "教材・授業", tags: ["個別課題", "実態把握", "成功体験"] },
+  "lesson-prep-reuse-materials": { category: "教材・授業", tags: ["教材再利用", "個別最適", "準備時間"] },
+  "lesson-prep-after-class": { category: "教材・授業", tags: ["授業後記録", "次回設計", "共有"] },
+};
+
+const caseLibrary = [...baseCaseLibrary, ...expertCaseLibrary];
+
 const painDescriptions = {
   "子どもの支援": "子どもの安心や学びを支える判断が、常に時間制約の中で求められる。",
   "保護者コミュニケーション": "事実、意図、今後の支援を誤解なく伝えるために大きな準備と心理的負荷がある。",
@@ -1828,6 +2449,37 @@ const painDescriptions = {
   "観察から次回設計へ変換する負荷": "授業中の反応を、次回の教材、声かけ、観察ポイントに変えるには時間と整理が必要。",
   "授業後すぐの記録負荷": "授業直後の気づきは次回設計に重要だが、次の授業や会議の準備時間と競合する。",
   "教材意図を共有する負荷": "教材そのものだけでなく、ねらい、声かけ、戻し方まで共有しないと支援がずれることがある。",
+  "前年度情報と今の実態の接続負荷": "残された記録や成果物を、今年度の本人理解と支援に変換する手間がある。",
+  "引継ぎで何を聞くかが曖昧": "経験の少ない担任ほど、前任者からどの情報を聞くべきかを決めるところでつまずく。",
+  "口頭情報が先入観になりやすい": "口頭の引継ぎは役立つ一方、事実と印象が混ざりやすく、保護者や本人への先入観につながる。",
+  "先入観と経験知の扱いにくさ": "同僚の経験知を尊重しながら、今年度の本人を新しく見る姿勢も保つ必要がある。",
+  "強みから入る関係づくりの時間": "保護者と協力関係を作るには、苦手さだけでなく強みから話す準備と時間が必要になる。",
+  "確認事項だけでは関係が深まりにくい": "必要事項の確認だけでは、保護者の願いや家庭での工夫を支援に生かしにくい。",
+  "計画説明のわかりにくさ": "教育支援計画や指導計画は、目的、使い方、見るポイントを説明しないと手続きに見えやすい。",
+  "苦手中心になりやすい面談": "困りを聞くほど支援には近づくが、強みや成長が置き去りになると関係づくりが難しくなる。",
+  "家庭の工夫を学校に移す難しさ": "家庭でうまくいく関わりを、人数や刺激の多い学校場面に移すには調整が必要になる。",
+  "同意取得の確認漏れ": "同意取得は重要だが、年度初めの多忙さの中で後続タスクとして漏れやすい。",
+  "面談内容を支援に変換する負荷": "面談で聞いたことを、明日からの支援、記録、共有に落とす編集作業が必要になる。",
+  "交流級での目標設定負荷": "交流級で何を見てほしいかを一つに絞り、実務連絡と一緒に伝える必要がある。",
+  "支援級任せになりやすい": "支援級側が抱え込むほど、交流級の日常で支援が実行されにくくなる。",
+  "交流級担任の当事者性づくり": "交流級担任が本人の成長や支援の意味を自分事として捉えられる共有が必要になる。",
+  "支援の意味づけの不足": "よい行動や支援が起きても、その意味が共有されないと次の実践につながりにくい。",
+  "即時対応と記録共有のトレードオフ": "その場で認めることと、後から共有できる形に残すことが競合する。",
+  "校内連携の時間確保": "短い相談でも、放課後や休み時間の限られた余白を使う必要がある。",
+  "交流先時間割の把握負荷": "交流先の予定変更や持ち物を把握できないと、支援級側の教材準備や見通しが崩れやすい。",
+  "交流学級の様子が把握できない": "本人が過ごす交流先の状況が見えないと、支援級内の準備だけでは支えきれない。",
+  "個別進度と場の安定の葛藤": "複数児童を同じ場で安定させるほど、一人ひとりの教科学習の進度調整は難しくなる。",
+  "複数学年・複数教科の同時進行": "支援級では、異なる学年や教科の学習が同じ時間に重なり、教材と支援を並行して組む必要がある。",
+  "補助員配置への依存": "補助員との分担があると回りやすいが、配置や共有が崩れると担任の負荷が急に増える。",
+  "通常級担任の支援余力不足": "通常級担任は授業、校務、保護者対応を抱えながら、一人の児童の背景まで深く考える余力を取りにくい。",
+  "他者の実践を自分の場面に移す難しさ": "他の先生の工夫は参考になるが、自分の学級の児童、時間、関係性に合わせた調整が必要になる。",
+  "明日試せる手立てへの変換負荷": "見立てや助言を、明日の授業で実行できる一手に落とすには絞り込みが必要になる。",
+  "保護者を支援チームにする説明負荷": "家庭を責めずに協力を得るには、事実だけでなく学校で試す工夫と家庭で見てほしい点を伝える必要がある。",
+  "家庭連絡のタイミング判断": "早く共有すれば安心につながるが、根拠が薄いまま伝えると不安や誤解も生まれやすい。",
+  "即時対応のスピード負荷": "授業開始前やトラブル場面では、数秒単位で場を整える判断と声かけが求められる。",
+  "叱責が二次的な不安を生む": "場は一時的に静かになっても、叱られる空気が本人や周囲の不安を高めることがある。",
+  "肯定的注目の準備負荷": "注目を集める行動を減らすには、問題が起きる前に役割や称賛の機会を仕込む必要がある。",
+  "学級経営の型づくり": "場を戻せた対応を記録し、次回も使える学級経営の型として蓄積する必要がある。",
   "リソース不足で理想対応を選べない": "必要だと分かっている支援でも、残り時間や先生の余力が足りないと選択肢から外れてしまう。",
 };
 
@@ -1835,7 +2487,7 @@ const discoveryCategories = [
   {
     id: "time-priority",
     title: "時間・優先順位",
-    matches: ["時間", "優先", "後回し", "準備", "待つ", "同時並行", "現場判断", "時間割", "短時間", "リソース"],
+    matches: ["時間", "優先", "後回し", "準備", "待つ", "同時並行", "現場判断", "時間割", "短時間", "リソース", "複数"],
     need:
       "先生が短い判断の中で何を守り、何を後回しにしたかを後から再構成できる支援が必要そう。",
     validation: "朝や放課後の判断で、先生はどの情報が先に見えていると迷いが減るか。",
@@ -1843,7 +2495,7 @@ const discoveryCategories = [
   {
     id: "records",
     title: "記録・共有",
-    matches: ["記録", "共有", "資料", "要約", "口頭", "編集", "メモ", "保管", "教材管理"],
+    matches: ["記録", "共有", "資料", "要約", "口頭", "編集", "メモ", "保管", "教材管理", "引継ぎ", "成果物"],
     need:
       "事実、解釈、次の一手を低負荷で残し、保護者説明や会議資料に変換できる支援が必要そう。",
     validation: "先生が今の記録で後から一番困るのは、事実不足、粒度のばらつき、共有先ごとの書き分けのどれか。",
@@ -1851,7 +2503,7 @@ const discoveryCategories = [
   {
     id: "parent-communication",
     title: "保護者コミュニケーション",
-    matches: ["保護者", "家庭", "連絡", "説明", "期待値", "不安", "リスク説明"],
+    matches: ["保護者", "家庭", "連絡", "説明", "期待値", "不安", "リスク説明", "面談", "同意", "強み"],
     need:
       "保護者の不安を受け止めつつ、事実、支援意図、次の見通しを誤解なく伝える支援が必要そう。",
     validation: "保護者連絡で先生がもっとも神経を使うのは、言葉選び、タイミング、校内方針との整合のどれか。",
@@ -1859,7 +2511,7 @@ const discoveryCategories = [
   {
     id: "school-coordination",
     title: "校内連携・役割分担",
-    matches: ["校内", "連携", "役割", "支援員", "管理職", "同僚", "合意", "関係者", "担任", "在籍学級", "教室", "相談"],
+    matches: ["校内", "連携", "役割", "支援員", "管理職", "同僚", "合意", "関係者", "担任", "在籍学級", "教室", "相談", "交流級", "通常級", "学年"],
     need:
       "担任、支援員、管理職、通常級担任の見立てと役割分担を、日々の運用に落とす支援が必要そう。",
     validation: "現場で支援方針がずれる時、足りないのは共通記録、判断基準、役割分担、振り返り機会のどれか。",
@@ -1883,6 +2535,12 @@ const discoveryCategories = [
       "観察",
       "通級",
       "個別",
+      "明日",
+      "学級経営",
+      "称賛",
+      "肯定的",
+      "入口",
+      "進度",
     ],
     need:
       "本人の安心、参加機会、自立、周囲への影響を同時に見ながら、次に試す支援を仮説化する支援が必要そう。",
@@ -1891,7 +2549,7 @@ const discoveryCategories = [
   {
     id: "emotional-load",
     title: "心理的負荷・説明責任",
-    matches: ["心理", "慎重", "板挟み", "葛藤", "負荷", "責任", "安全"],
+    matches: ["心理", "慎重", "板挟み", "葛藤", "負荷", "責任", "安全", "叱責", "先入観", "余力"],
     need:
       "正しさを断定できない状況でも、関係者に説明しながら判断を続ける先生の心理的負荷を下げる支援が必要そう。",
     validation: "先生が一人で抱え込みやすい判断は、どのタイミングで誰に共有されると負荷が下がるか。",
@@ -2066,6 +2724,7 @@ const resourceEffectMultipliers = {
 const state = {
   mode: "pain",
   caseIndex: 0,
+  caseFilter: "all",
   scene: 0,
   stats: { ...initialStats },
   pains: [],
@@ -2091,6 +2750,32 @@ function escapeHtml(value) {
 
 function activeCase() {
   return caseLibrary[state.caseIndex];
+}
+
+function caseCategory(caseItem) {
+  return caseItem.category || caseMetadata[caseItem.id]?.category || "その他";
+}
+
+function caseTags(caseItem) {
+  return caseItem.tags || caseMetadata[caseItem.id]?.tags || [];
+}
+
+function caseFilterItems() {
+  const categories = [...new Set(caseLibrary.map((caseItem) => caseCategory(caseItem)))];
+  return [
+    { id: "all", label: "すべて", count: caseLibrary.length },
+    ...categories.map((category) => ({
+      id: category,
+      label: category,
+      count: caseLibrary.filter((caseItem) => caseCategory(caseItem) === category).length,
+    })),
+  ];
+}
+
+function filteredCaseEntries() {
+  return caseLibrary
+    .map((caseItem, index) => ({ caseItem, index }))
+    .filter(({ caseItem }) => state.caseFilter === "all" || caseCategory(caseItem) === state.caseFilter);
 }
 
 function clamp(value) {
@@ -2241,17 +2926,48 @@ function recordResourceLimits(scene, choiceStates) {
   });
 }
 
+function renderCaseFilters() {
+  const filterContainer = $("#caseFilters");
+  if (!filterContainer) return;
+  filterContainer.innerHTML = "";
+
+  caseFilterItems().forEach((filter) => {
+    const button = document.createElement("button");
+    button.type = "button";
+    button.className = "case-filter-button";
+    button.setAttribute("aria-pressed", String(state.caseFilter === filter.id));
+    button.innerHTML = `${escapeHtml(filter.label)} <span>${filter.count}</span>`;
+    button.addEventListener("click", () => {
+      state.caseFilter = filter.id;
+      const entries = filteredCaseEntries();
+      if (entries.length > 0 && !entries.some((entry) => entry.index === state.caseIndex)) {
+        state.caseIndex = entries[0].index;
+      }
+      renderCaseFilters();
+      renderCaseCards();
+    });
+    filterContainer.appendChild(button);
+  });
+}
+
 function renderCaseCards() {
   $("#caseGrid").innerHTML = "";
-  caseLibrary.forEach((caseItem, index) => {
+  const entries = filteredCaseEntries();
+  if (entries.length > 0 && !entries.some((entry) => entry.index === state.caseIndex)) {
+    state.caseIndex = entries[0].index;
+  }
+
+  entries.forEach(({ caseItem, index }) => {
     const button = document.createElement("button");
     button.type = "button";
     button.className = "case-card";
     button.setAttribute("aria-pressed", String(index === state.caseIndex));
+    const tags = [caseCategory(caseItem), ...caseTags(caseItem)];
     button.innerHTML = `
       <strong>${escapeHtml(caseItem.title)}</strong>
       <span>${escapeHtml(caseItem.description)}</span>
       <small>${escapeHtml(caseItem.focus)}</small>
+      <div class="case-card-tags">${tags.map((tag) => `<span>${escapeHtml(tag)}</span>`).join("")}</div>
     `;
     button.addEventListener("click", () => {
       state.caseIndex = index;
@@ -2269,6 +2985,7 @@ function renderMode() {
   $("#randomCase").classList.toggle("hidden", state.mode !== "pain");
   $("#loadSamplePath").classList.toggle("hidden", state.mode !== "pain");
   $("#startGame").textContent = state.mode === "pain" ? "選んだケースを始める" : "ABC分析を始める";
+  renderCaseFilters();
 }
 
 function selectMode(mode) {
@@ -2641,7 +3358,9 @@ function demoResult() {
 }
 
 function chooseRandomCase() {
-  state.caseIndex = Math.floor(Math.random() * caseLibrary.length);
+  const entries = filteredCaseEntries();
+  const candidates = entries.length > 0 ? entries : caseLibrary.map((caseItem, index) => ({ caseItem, index }));
+  state.caseIndex = candidates[Math.floor(Math.random() * candidates.length)].index;
   renderCaseCards();
   resetGame();
 }
